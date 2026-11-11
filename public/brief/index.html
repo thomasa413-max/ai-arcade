@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Shared Game Brief</title>
+<title>Game Briefs · AI Arcade</title>
 <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Barlow+Semi+Condensed:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-/* Layout idea: a single column work sheet; one shared brief on top, one copy card per platform below. */
+/* Layout idea: a single column work sheet; a starter template on top, then one brief card per game. */
 :root{--bg:#0b0e13;--panel:#131923;--line:#25303f;--ink:#e8eef5;--mute:#93a3b5;--amber:#ffb02e;
  --display:'Bungee','Arial Black',sans-serif;--body:'Barlow Semi Condensed','Arial Narrow',system-ui,sans-serif;color-scheme:dark}
 *{box-sizing:border-box}
@@ -28,12 +28,12 @@ ol{margin:0;padding-left:20px;color:var(--mute)} li{margin:2px 0}
 <main>
 <header>
 <p class="eyebrow">AI ARCADE · BUILD KIT</p>
-<h1>Shared game brief</h1>
-<p>Paste the shared brief and one game line into each AI platform. Same rules for everyone, so the results can be scored fairly.</p>
+<h1>Game briefs</h1>
+<p>Every game starts from its own written brief. Below are the baseline requirements most briefs build on, then the game line used for each platform so far. New briefs are added here as new games are built.</p>
 </header>
 
 <section class="card" style="--c:#ffb02e">
-<h2>1 · Shared brief (same for every platform)</h2>
+<h2>1 · Starter template (baseline requirements)</h2>
 <pre id="shared">Build a complete, original 2D browser game as ONE self-contained HTML file (HTML, CSS and JavaScript in the same file, no build step, no external image or audio files).
 
 Requirements:
@@ -47,37 +47,37 @@ Requirements:
 
 Deliver the single HTML file first. Then list three improvements you would make with more time.
 
-GAME: [paste the game line below]</pre>
-<button data-copy="shared">Copy shared brief</button><div class="ok" aria-live="polite"></div>
+GAME: [paste this game's line from below, or write a new one]</pre>
+<button data-copy="shared">Copy template</button><div class="ok" aria-live="polite"></div>
 </section>
 
 <section class="card" style="--c:#8ab4ff">
-<h2>2 · Gemini game line</h2>
+<h2>2 · Gemini game brief</h2>
 <pre id="g1">A 2D arcade racing game with a vertical scrolling road: dodge traffic, collect boost and fuel pickups, and reach a finish line after about two minutes.</pre>
-<button data-copy="g1">Copy game line</button><div class="ok" aria-live="polite"></div>
+<button data-copy="g1">Copy brief</button><div class="ok" aria-live="polite"></div>
 </section>
 
 <section class="card" style="--c:#3fe0ff">
-<h2>3 · Copilot game line</h2>
+<h2>3 · Copilot game brief</h2>
 <pre id="g2">A 2D vertical air-fighter shooter: waves of enemy aircraft, power-ups, a mid-level mini boss and a final boss.</pre>
-<button data-copy="g2">Copy game line</button><div class="ok" aria-live="polite"></div>
+<button data-copy="g2">Copy brief</button><div class="ok" aria-live="polite"></div>
 </section>
 
 <section class="card" style="--c:#ff6a4a">
-<h2>4 · Mistral game line</h2>
+<h2>4 · Mistral game brief</h2>
 <pre id="g3">A 2D maze chase game: collect every pellet in a labyrinth while avoiding patrolling enemies, with a power-up that lets you turn the tables for a few seconds. Use an original title and original characters.</pre>
-<button data-copy="g3">Copy game line</button><div class="ok" aria-live="polite"></div>
+<button data-copy="g3">Copy brief</button><div class="ok" aria-live="polite"></div>
 </section>
 
 <section class="card" style="--c:#3ddc97">
-<h2>5 · ChatGPT game line</h2>
+<h2>5 · ChatGPT game brief</h2>
 <pre id="g4">A 2D platformer: run and jump through one themed level with moving platforms, collectibles, enemies to avoid or defeat, a checkpoint and a boss at the end. Use an original hero and an original title.</pre>
-<button data-copy="g4">Copy game line</button><div class="ok" aria-live="polite"></div>
+<button data-copy="g4">Copy brief</button><div class="ok" aria-live="polite"></div>
 </section>
 
 <section class="card">
 <h2>After each build, note down</h2>
-<ol><li>Time spent and number of prompts or fixes needed</li><li>Cost (free tier, subscription or API)</li><li>What worked first time and what had to be fixed</li><li>Score out of 5 for each criterion on the landing page</li></ol>
+<ol><li>Time spent and number of prompts or fixes needed</li><li>Cost (free tier, subscription or API)</li><li>What worked first time and what had to be fixed</li><li>Score out of 5 for each criterion on the landing page, noting how closely the game meets its own brief</li></ol>
 </section>
 </main>
 <script>
