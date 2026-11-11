@@ -26,4 +26,3 @@ Each page shows a visitor counter in the footer. `/admin/` shows countries, devi
 ## Adding a game
 Drop the game's `index.html` in `public/games/<name>/`, then change its card from "Coming soon" to a button in `../build/landing.html` and rebuild.
 
-<!-- redeploy trigger -->
