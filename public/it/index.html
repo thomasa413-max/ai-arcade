@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Arcade</title>
+<meta name="description" content="Sei giochi originali nel browser creati con cinque piattaforme di IA dallo stesso brief, con una tabella di valutazione comparativa.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Barlow+Semi+Condensed:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: an arcade marquee on top, then six cabinet cards, each lit in its platform's colour; a scorecard below. */
+:root{
+  --bg:#080b11; --panel:#101620; --line:#232e3d; --ink:#e8eef5; --mute:#93a3b5; --amber:#ffb02e;
+  --claude:#ffb02e; --chatgpt:#3ddc97; --gemini:#8ab4ff; --copilot:#3fe0ff; --mistral:#ff6a4a;
+  --display:'Bungee','Arial Black',sans-serif; --body:'Barlow Semi Condensed','Arial Narrow',system-ui,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.45 var(--body)}
+a{color:inherit}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+header.marquee{padding:34px 0 26px;border-bottom:1px solid var(--line);
+  background:radial-gradient(900px 280px at 20% -20%,rgba(255,176,46,.16),transparent 70%),radial-gradient(700px 260px at 90% 0,rgba(63,224,255,.10),transparent 70%)}
+.eyebrow{font:600 12px var(--body);letter-spacing:.3em;color:var(--amber);margin:0 0 10px}
+h1{font:400 clamp(40px,11vw,84px)/.95 var(--display);margin:0 0 14px;text-wrap:balance;letter-spacing:.01em}
+h1 span{color:var(--amber)}
+.lede{color:#b9c6d4;max-width:60ch;margin:0 0 18px;font-size:19px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:600 13px var(--body);letter-spacing:.08em;padding:5px 10px;border:1px solid var(--c);color:var(--c);border-radius:2px}
+main{padding:32px 0 56px;display:flex;flex-direction:column;gap:44px}
+h2{font:400 clamp(22px,5vw,30px)/1.1 var(--display);margin:0 0 6px}
+.sub{color:var(--mute);margin:0 0 18px;max-width:64ch}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(290px,1fr))}
+.card{position:relative;background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--c);padding:16px 16px 18px;display:flex;flex-direction:column;gap:10px;min-height:260px}
+.card:before{content:"";position:absolute;inset:0;background:radial-gradient(260px 120px at 0 0,color-mix(in srgb,var(--c) 14%,transparent),transparent 70%);pointer-events:none}
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px;position:relative}
+.who{font:600 12px var(--body);letter-spacing:.2em;color:var(--c)}
+.pill{font:600 11px var(--body);letter-spacing:.14em;padding:3px 8px;border-radius:20px;border:1px solid var(--line);color:var(--mute)}
+.pill.live{border-color:var(--c);color:var(--c)}
+.ico{width:56px;height:56px;color:var(--c);position:relative}
+.card h3{font:400 22px/1.05 var(--display);margin:0;position:relative}
+.card p{margin:0;color:var(--mute);font-size:16px;position:relative}
+.card .cta{margin-top:auto;position:relative}
+.btn{display:inline-block;font:600 14px var(--body);letter-spacing:.14em;text-transform:uppercase;text-decoration:none;padding:11px 16px;background:var(--c);color:#0b0f14}
+.btn.off{background:transparent;color:var(--mute);border:1px dashed var(--line);cursor:default}
+.btn:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.scroller{overflow-x:auto;border:1px solid var(--line);background:var(--panel)}
+table{border-collapse:collapse;width:100%;min-width:640px;font-variant-numeric:tabular-nums}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);font-size:15px}
+th{font:600 12px var(--body);letter-spacing:.14em;color:var(--mute);text-transform:uppercase;white-space:nowrap}
+td.n{color:var(--mute);text-align:center}
+tr:last-child td{border-bottom:0}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--c);margin-right:8px}
+.steps{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));counter-reset:s;margin:0;padding:0;list-style:none}
+.steps li{counter-increment:s;background:var(--panel);border:1px solid var(--line);padding:14px 14px 16px}
+.steps li:before{content:counter(s);display:block;font:400 26px var(--display);color:var(--amber);margin-bottom:4px}
+.steps b{display:block;margin-bottom:2px}
+.steps span{color:var(--mute);font-size:15px}
+footer{border-top:1px solid var(--line);padding:22px 0 40px;color:var(--mute);font-size:14px}
+footer p{margin:0 0 6px;max-width:80ch}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+
+[dir=rtl] *{letter-spacing:0!important}
+.langs{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end;padding-top:12px}
+.langs a{font:600 12px var(--body);letter-spacing:.14em;text-decoration:none;padding:4px 9px;border:1px solid var(--line);color:var(--mute);border-radius:2px}
+.langs a[aria-current=true]{border-color:var(--amber);color:var(--amber)}
+.sk-comment-form{display:grid;gap:10px;max-width:640px;margin-bottom:22px}
+.sk-comment-form input,.sk-comment-form textarea{width:100%;font:400 16px var(--body);background:var(--panel);color:var(--ink);border:1px solid var(--line);padding:10px 12px;border-radius:2px}
+.sk-comment-form input:focus-visible,.sk-comment-form textarea:focus-visible,.sk-comment-form button:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.sk-comment-form button{justify-self:start;font:600 14px var(--body);letter-spacing:.14em;text-transform:uppercase;padding:11px 18px;background:var(--amber);color:#0b0f14;border:0;cursor:pointer}
+.sk-comment-form button:disabled{opacity:.5}
+.sk-trap{position:absolute!important;top:0;left:0;width:1px;height:1px;opacity:0;pointer-events:none}.sk-comment-form{position:relative}
+.sk-comments{display:grid;gap:12px;max-width:760px}
+.sk-comment{background:var(--panel);border:1px solid var(--line);padding:12px 14px}
+.sk-comment header{color:var(--mute);font-size:14px}.sk-comment header strong{color:var(--ink)}
+.sk-text{margin:6px 0;white-space:pre-wrap;overflow-wrap:anywhere}
+.sk-actions{display:flex;gap:10px}
+.sk-actions button{font:600 13px var(--body);background:transparent;color:var(--mute);border:1px solid var(--line);padding:5px 10px;cursor:pointer;border-radius:2px}
+.sk-actions button[aria-pressed=true]{color:var(--amber);border-color:var(--amber)}
+@media (max-width:480px){.langs{justify-content:flex-start}}
+</style>
+<link rel="alternate" hreflang="en" href="https://pixelmindarcade.com/en/"><link rel="alternate" hreflang="fr" href="https://pixelmindarcade.com/fr/"><link rel="alternate" hreflang="es" href="https://pixelmindarcade.com/es/"><link rel="alternate" hreflang="pt" href="https://pixelmindarcade.com/pt/"><link rel="alternate" hreflang="de" href="https://pixelmindarcade.com/de/"><link rel="alternate" hreflang="it" href="https://pixelmindarcade.com/it/"><link rel="alternate" hreflang="ar" href="https://pixelmindarcade.com/ar/"><link rel="alternate" hreflang="zh" href="https://pixelmindarcade.com/zh/"><link rel="alternate" hreflang="x-default" href="https://pixelmindarcade.com/en/"></head>
+<body>
+<header class="marquee"><div class="wrap"><nav class="langs" aria-label="Lingua"><a href="../en/" hreflang="en" lang="en">English</a><a href="../fr/" hreflang="fr" lang="fr">Français</a><a href="../es/" hreflang="es" lang="es">Español</a><a href="../pt/" hreflang="pt" lang="pt">Português</a><a href="../de/" hreflang="de" lang="de">Deutsch</a><a href="../it/" hreflang="it" lang="it" aria-current="true">Italiano</a><a href="../ar/" hreflang="ar" lang="ar">العربية</a><a href="../zh/" hreflang="zh" lang="zh">中文</a></nav>
+  <p class="eyebrow">UN ESPERIMENTO DI PORTFOLIO</p>
+  <h1>Cinque IA.<br><span>Sei giochi.</span></h1>
+  <p class="lede">Un project manager, un brief comune, una piattaforma di IA diversa per ogni gioco. Gioca e confronta i risultati sulla stessa tabella di valutazione.</p>
+  <div class="chips">
+    <span class="chip" style="--c:var(--claude)">Claude</span><span class="chip" style="--c:var(--chatgpt)">ChatGPT</span><span class="chip" style="--c:var(--gemini)">Gemini</span><span class="chip" style="--c:var(--copilot)">Copilot</span><span class="chip" style="--c:var(--mistral)">Mistral</span>
+  </div>
+</div></header>
+
+<main class="wrap">
+<section aria-labelledby="games">
+  <h2 id="games">I giochi</h2>
+  <p class="sub">Ogni gioco è originale, funziona nel browser su qualsiasi dispositivo, in orizzontale e in verticale, è una sola pagina e ha il suo audio. I giochi compaiono qui man mano che sono pronti.</p>
+  <div class="grid">
+
+    <article class="card" style="--c:var(--claude)">
+      <div class="top"><span class="who">CLAUDE · 2D</span><span class="pill live">GIOCABILE</span></div>
+      <svg class="ico" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><circle cx="32" cy="32" r="16"/><path d="M32 8v10M32 46v10M8 32h10M46 32h10"/><circle cx="32" cy="32" r="3" fill="currentColor"/></svg>
+      <h3>Hive Breach</h3>
+      <p>Run and gun in una stazione spaziale abbandonata. Quattro tipi di alieni, armi da raccogliere, checkpoint e una Regina dell'alveare come boss, con musica sintetizzata che reagisce all'azione.</p>
+      <div class="cta"><a class="btn" href="../games/hive-breach/">Gioca a Hive Breach</a></div>
+    </article>
+
+    <article class="card" style="--c:var(--claude)">
+      <div class="top"><span class="who">CLAUDE · 3D</span><span class="pill">IN ARRIVO</span></div>
+      <svg class="ico" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" aria-hidden="true"><path d="M32 8l20 11v22L32 52 12 41V19z"/><path d="M12 19l20 11 20-11M32 30v22"/></svg>
+      <h3>Gioco 3D</h3>
+      <p>Un gioco 3D low-poly per smartphone e computer. Genere da scegliere.</p>
+      <div class="cta"><span class="btn off">Prossimamente</span></div>
+    </article>
+
+    <article class="card" style="--c:var(--gemini)">
+      <div class="top"><span class="who">GEMINI · 2D</span><span class="pill">IN ARRIVO</span></div>
+      <svg class="ico" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 40l5-12c1-3 3-4 6-4h22c3 0 5 1 6 4l5 12v8H10z"/><circle cx="20" cy="48" r="4" fill="var(--panel)"/><circle cx="44" cy="48" r="4" fill="var(--panel)"/></svg>
+      <h3>Gioco di corse</h3>
+      <p>Corse arcade su una strada a scorrimento: schiva il traffico, raccogli i boost e raggiungi il traguardo.</p>
+      <div class="cta"><span class="btn off">Prossimamente</span></div>
+    </article>
+
+    <article class="card" style="--c:var(--copilot)">
+      <div class="top"><span class="who">COPILOT · 2D</span><span class="pill">IN ARRIVO</span></div>
+      <svg class="ico" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M32 8l6 22 16 10v6l-16-3-3 11h-6l-3-11-16 3v-6l16-10z"/></svg>
+      <h3>Caccia aereo</h3>
+      <p>Shooter verticale: ondate di aerei nemici, potenziamenti, un mini boss e un boss finale.</p>
+      <div class="cta"><span class="btn off">Prossimamente</span></div>
+    </article>
+
+    <article class="card" style="--c:var(--mistral)">
+      <div class="top"><span class="who">MISTRAL · 2D</span><span class="pill">IN ARRIVO</span></div>
+      <svg class="ico" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M10 10h44v44H10zM10 24h22M42 10v22M24 32v22M42 42h12M24 42h8"/></svg>
+      <h3>Inseguimento nel labirinto</h3>
+      <p>Raccogli tutte le pillole del labirinto mentre i nemici ti inseguono, finché un potenziamento ribalta la situazione.</p>
+      <div class="cta"><span class="btn off">Prossimamente</span></div>
+    </article>
+
+    <article class="card" style="--c:var(--chatgpt)">
+      <div class="top"><span class="who">CHATGPT · 2D</span><span class="pill">IN ARRIVO</span></div>
+      <svg class="ico" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 52h16V38h14v-12h22M6 52h52"/><circle cx="14" cy="28" r="5"/></svg>
+      <h3>Platform</h3>
+      <p>Corri e salta in un livello a tema con piattaforme mobili, oggetti da raccogliere, un checkpoint e un boss.</p>
+      <div class="cta"><span class="btn off">Prossimamente</span></div>
+    </article>
+
+  </div>
+</section>
+
+<section aria-labelledby="score">
+  <h2 id="score">Come vengono valutati</h2>
+  <p class="sub">Gli stessi sei criteri, valutati da 0 a 5 dopo ogni creazione. I punteggi compaiono quando ogni gioco è pronto.</p>
+  <div class="scroller"><table>
+    <thead><tr><th>Gioco</th><th>Qualsiasi dispositivo, 2 orientamenti</th><th>Comandi</th><th>Grafica</th><th>Audio</th><th>Contenuti</th><th>Impegno di creazione</th></tr></thead>
+    <tbody>
+      <tr style="--c:var(--claude)"><td><span class="dot"></span>Hive Breach · Claude</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td></tr>
+      <tr style="--c:var(--claude)"><td><span class="dot"></span>Gioco 3D · Claude</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td></tr>
+      <tr style="--c:var(--gemini)"><td><span class="dot"></span>Corse · Gemini</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td></tr>
+      <tr style="--c:var(--copilot)"><td><span class="dot"></span>Caccia aereo · Copilot</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td></tr>
+      <tr style="--c:var(--mistral)"><td><span class="dot"></span>Labirinto · Mistral</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td></tr>
+      <tr style="--c:var(--chatgpt)"><td><span class="dot"></span>Platform · ChatGPT</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section aria-labelledby="method">
+  <h2 id="method">Come funziona</h2>
+  <p class="sub">La disciplina nella consegna conta quanto i giochi, quindi ogni creazione segue lo stesso semplice processo.</p>
+  <ol class="steps">
+    <li><b>Un solo brief</b><span>Gli stessi requisiti per ogni piattaforma: un file HTML, touch e tastiera, audio, un livello completo, orizzontale e verticale.</span></li>
+    <li><b>Creazione a tempo limitato</b><span>Ogni gioco ha un numero fisso di iterazioni. Tempo, prompt e costi vengono registrati.</span></li>
+    <li><b>Test su smartphone</b><span>Ogni gioco viene aperto su uno smartphone e un computer reali prima della pubblicazione.</span></li>
+    <li><b>Valuta e pubblica</b><span>Valutato sui sei criteri sopra, con note su cosa ha funzionato e cosa è stato corretto.</span></li>
+  </ol>
+  <p class="sub" style="margin-top:16px">Il brief comune si trova nella <a href="../brief/">pagina del kit di creazione</a>.</p>
+</section>
+<section aria-labelledby="cm"><h2 id="cm">Commenti</h2><p class="sub">Hai provato un gioco? Lascia un messaggio. I commenti compaiono dopo la verifica, in qualsiasi lingua, e si possono tradurre su richiesta.</p><div id="comments" data-sitekey="" data-lang="it"></div></section>
+</main>
+
+<footer><div class="wrap">
+  <p>Visitatori: <b id="visitor-count">–</b></p>
+  <p>Creato e diretto da Michaël Miguel. Tutti i giochi sono generati dall'IA, con titoli e personaggi originali.</p>
+  <p>Claude, ChatGPT, Gemini, Copilot e Mistral sono marchi dei rispettivi proprietari. Questa pagina non è affiliata né approvata da loro.</p>
+</div></footer>
+<script>window.SK_COMMENTS={send:"Invia",name:"Il tuo nome",message:"Il tuo messaggio (almeno 20 caratteri)",pending:"Grazie! Il tuo commento apparirà dopo la verifica.",error:"Qualcosa è andato storto, riprova.",translate:"Traduci",original:"Mostra originale",empty:"Ancora nessun commento. Sii il primo.",like:"Mi piace"};</script><script src="../assets/comments.js" defer></script><script src="../assets/visits.js" defer></script></body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Arcade</title>
+<meta name="description" content="ست ألعاب أصلية في المتصفح أُنشئت بخمس منصات ذكاء اصطناعي من التكليف نفسه، مع جدول تقييم مقارن.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Barlow+Semi+Condensed:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: an arcade marquee on top, then six cabinet cards, each lit in its platform's colour; a scorecard below. */
+:root{
+  --bg:#080b11; --panel:#101620; --line:#232e3d; --ink:#e8eef5; --mute:#93a3b5; --amber:#ffb02e;
+  --claude:#ffb02e; --chatgpt:#3ddc97; --gemini:#8ab4ff; --copilot:#3fe0ff; --mistral:#ff6a4a;
+  --display:'Bungee','Arial Black',sans-serif; --body:'Barlow Semi Condensed','Arial Narrow',system-ui,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.45 var(--body)}
+a{color:inherit}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+header.marquee{padding:34px 0 26px;border-bottom:1px solid var(--line);
+  background:radial-gradient(900px 280px at 20% -20%,rgba(255,176,46,.16),transparent 70%),radial-gradient(700px 260px at 90% 0,rgba(63,224,255,.10),transparent 70%)}
+.eyebrow{font:600 12px var(--body);letter-spacing:.3em;color:var(--amber);margin:0 0 10px}
+h1{font:400 clamp(40px,11vw,84px)/.95 var(--display);margin:0 0 14px;text-wrap:balance;letter-spacing:.01em}
+h1 span{color:var(--amber)}
+.lede{color:#b9c6d4;max-width:60ch;margin:0 0 18px;font-size:19px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:600 13px var(--body);letter-spacing:.08em;padding:5px 10px;border:1px solid var(--c);color:var(--c);border-radius:2px}
+main{padding:32px 0 56px;display:flex;flex-direction:column;gap:44px}
+h2{font:400 clamp(22px,5vw,30px)/1.1 var(--display);margin:0 0 6px}
+.sub{color:var(--mute);margin:0 0 18px;max-width:64ch}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(290px,1fr))}
+.card{position:relative;background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--c);padding:16px 16px 18px;display:flex;flex-direction:column;gap:10px;min-height:260px}
+.card:before{content:"";position:absolute;inset:0;background:radial-gradient(260px 120px at 0 0,color-mix(in srgb,var(--c) 14%,transparent),transparent 70%);pointer-events:none}
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px;position:relative}
+.who{font:600 12px var(--body);letter-spacing:.2em;color:var(--c)}
+.pill{font:600 11px var(--body);letter-spacing:.14em;padding:3px 8px;border-radius:20px;border:1px solid var(--line);color:var(--mute)}
+.pill.live{border-color:var(--c);color:var(--c)}
+.ico{width:56px;height:56px;color:var(--c);position:relative}
+.card h3{font:400 22px/1.05 var(--display);margin:0;position:relative}
+.card p{margin:0;color:var(--mute);font-size:16px;position:relative}
+.card .cta{margin-top:auto;position:relative}
+.btn{display:inline-block;font:600 14px var(--body);letter-spacing:.14em;text-transform:uppercase;text-decoration:none;padding:11px 16px;background:var(--c);color:#0b0f14}
+.btn.off{background:transparent;color:var(--mute);border:1px dashed var(--line);cursor:default}
+.btn:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.scroller{overflow-x:auto;border:1px solid var(--line);background:var(--panel)}
+table{border-collapse:collapse;width:100%;min-width:640px;font-variant-numeric:tabular-nums}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);font-size:15px}
+th{font:600 12px var(--body);letter-spacing:.14em;color:var(--mute);text-transform:uppercase;white-space:nowrap}
+td.n{color:var(--mute);text-align:center}
+tr:last-child td{border-bottom:0}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--c);margin-right:8px}
+.steps{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));counter-reset:s;margin:0;padding:0;list-style:none}
+.steps li{counter-increment:s;background:var(--panel);border:1px solid var(--line);padding:14px 14px 16px}
+.steps li:before{content:counter(s);display:block;font:400 26px var(--display);color:var(--amber);margin-bottom:4px}
+.steps b{display:block;margin-bottom:2px}
+.steps span{color:var(--mute);font-size:15px}
+footer{border-top:1px solid var(--line);padding:22px 0 40px;color:var(--mute);font-size:14px}
+footer p{margin:0 0 6px;max-width:80ch}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+
+[dir=rtl] *{letter-spacing:0!important}
+.langs{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end;padding-top:12px}
+.langs a{font:600 12px var(--body);letter-spacing:.14em;text-decoration:none;padding:4px 9px;border:1px solid var(--line);color:var(--mute);border-radius:2px}
+.langs a[aria-current=true]{border-color:var(--amber);color:var(--amber)}
+.sk-comment-form{display:grid;gap:10px;max-width:640px;margin-bottom:22px}
+.sk-comment-form input,.sk-comment-form textarea{width:100%;font:400 16px var(--body);background:var(--panel);color:var(--ink);border:1px solid var(--line);padding:10px 12px;border-radius:2px}
+.sk-comment-form input:focus-visible,.sk-comment-form textarea:focus-visible,.sk-comment-form button:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.sk-comment-form button{justify-self:start;font:600 14px var(--body);letter-spacing:.14em;text-transform:uppercase;padding:11px 18px;background:var(--amber);color:#0b0f14;border:0;cursor:pointer}
+.sk-comment-form button:disabled{opacity:.5}
+.sk-trap{position:absolute!important;top:0;left:0;width:1px;height:1px;opacity:0;pointer-events:none}.sk-comment-form{position:relative}
+.sk-comments{display:grid;gap:12px;max-width:760px}
+.sk-comment{background:var(--panel);border:1px solid var(--line);padding:12px 14px}
+.sk-comment header{color:var(--mute);font-size:14px}.sk-comment header strong{color:var(--ink)}
+.sk-text{margin:6px 0;white-space:pre-wrap;overflow-wrap:anywhere}
+.sk-actions{display:flex;gap:10px}
+.sk-actions button{font:600 13px var(--body);background:transparent;color:var(--mute);border:1px solid var(--line);padding:5px 10px;cursor:pointer;border-radius:2px}
+.sk-actions button[aria-pressed=true]{color:var(--amber);border-color:var(--amber)}
+@media (max-width:480px){.langs{justify-content:flex-start}}
+</style>
+<link rel="alternate" hreflang="en" href="https://pixelmindarcade.com/en/"><link rel="alternate" hreflang="fr" href="https://pixelmindarcade.com/fr/"><link rel="alternate" hreflang="es" href="https://pixelmindarcade.com/es/"><link rel="alternate" hreflang="pt" href="https://pixelmindarcade.com/pt/"><link rel="alternate" hreflang="de" href="https://pixelmindarcade.com/de/"><link rel="alternate" hreflang="it" href="https://pixelmindarcade.com/it/"><link rel="alternate" hreflang="ar" href="https://pixelmindarcade.com/ar/"><link rel="alternate" hreflang="zh" href="https://pixelmindarcade.com/zh/"><link rel="alternate" hreflang="x-default" href="https://pixelmindarcade.com/en/"></head>
+<body>
+<header class="marquee"><div class="wrap"><nav class="langs" aria-label="اللغة"><a href="../en/" hreflang="en" lang="en">English</a><a href="../fr/" hreflang="fr" lang="fr">Français</a><a href="../es/" hreflang="es" lang="es">Español</a><a href="../pt/" hreflang="pt" lang="pt">Português</a><a href="../de/" hreflang="de" lang="de">Deutsch</a><a href="../it/" hreflang="it" lang="it">Italiano</a><a href="../ar/" hreflang="ar" lang="ar" aria-current="true">العربية</a><a href="../zh/" hreflang="zh" lang="zh">中文</a></nav>
+  <p class="eyebrow">تجربة لمحفظة أعمال</p>
+  <h1>خمسة ذكاءات اصطناعية.<br><span>ست ألعاب.</span></h1>
+  <p class="lede">مدير مشروع واحد، وتكليف مشترك، ومنصة ذكاء اصطناعي مختلفة لكل لعبة. العب ثم قارن النتائج على جدول التقييم نفسه.</p>
+  <div class="chips">
+    <span class="chip" style="--c:var(--claude)">Claude</span><span class="chip" style="--c:var(--chatgpt)">ChatGPT</span><span class="chip" style="--c:var(--gemini)">Gemini</span><span class="chip" style="--c:var(--copilot)">Copilot</span><span class="chip" style="--c:var(--mistral)">Mistral</span>
+  </div>
+</div></header>
+
+<main class="wrap">
+<section aria-labelledby="games">
+  <h2 id="games">الألعاب</h2>
+  <p class="sub">كل لعبة أصلية وتعمل في المتصفح على أي جهاز، بالوضع الأفقي والعمودي، وهي صفحة واحدة بصوتها الخاص. تظهر الألعاب هنا فور اكتمالها.</p>
+  <div class="grid">
+
+    <article class="card" style="--c:var(--claude)">
+      <div class="top"><span class="who">CLAUDE · 2D</span><span class="pill live">قابلة للعب</span></div>
+      <svg class="ico" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><circle cx="32" cy="32" r="16"/><path d="M32 8v10M32 46v10M8 32h10M46 32h10"/><circle cx="32" cy="32" r="3" fill="currentColor"/></svg>
+      <h3>Hive Breach</h3>
+      <p>لعبة إطلاق نار وركض في محطة فضائية مهجورة. أربعة أنواع من الفضائيين، وأسلحة للجمع، ونقاط حفظ، وملكة الخلية كزعيم، مع موسيقى مولّدة تتفاعل مع الأحداث.</p>
+      <div class="cta"><a class="btn" href="../games/hive-breach/">العب Hive Breach</a></div>
+    </article>
+
+    <article class="card" style="--c:var(--claude)">
+      <div class="top"><span class="who">CLAUDE · 3D</span><span class="pill">قريبًا</span></div>
+      <svg class="ico" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" aria-hidden="true"><path d="M32 8l20 11v22L32 52 12 41V19z"/><path d="M12 19l20 11 20-11M32 30v22"/></svg>
+      <h3>لعبة ثلاثية الأبعاد</h3>
+      <p>لعبة ثلاثية الأبعاد بأسلوب low-poly للهاتف والحاسوب. النوع لم يُحدد بعد.</p>
+      <div class="cta"><span class="btn off">قريبًا</span></div>
+    </article>
+
+    <article class="card" style="--c:var(--gemini)">
+      <div class="top"><span class="who">GEMINI · 2D</span><span class="pill">قريبًا</span></div>
+      <svg class="ico" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 40l5-12c1-3 3-4 6-4h22c3 0 5 1 6 4l5 12v8H10z"/><circle cx="20" cy="48" r="4" fill="var(--panel)"/><circle cx="44" cy="48" r="4" fill="var(--panel)"/></svg>
+      <h3>لعبة سباق</h3>
+      <p>سباق أركيد على طريق متحرك: تفادَ السيارات والتقط المعززات وبلغ خط النهاية.</p>
+      <div class="cta"><span class="btn off">قريبًا</span></div>
+    </article>
+
+    <article class="card" style="--c:var(--copilot)">
+      <div class="top"><span class="who">COPILOT · 2D</span><span class="pill">قريبًا</span></div>
+      <svg class="ico" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M32 8l6 22 16 10v6l-16-3-3 11h-6l-3-11-16 3v-6l16-10z"/></svg>
+      <h3>طائرة مقاتلة</h3>
+      <p>لعبة إطلاق نار عمودية: موجات من الطائرات المعادية، ومعززات، وزعيم صغير وزعيم أخير.</p>
+      <div class="cta"><span class="btn off">قريبًا</span></div>
+    </article>
+
+    <article class="card" style="--c:var(--mistral)">
+      <div class="top"><span class="who">MISTRAL · 2D</span><span class="pill">قريبًا</span></div>
+      <svg class="ico" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M10 10h44v44H10zM10 24h22M42 10v22M24 32v22M42 42h12M24 42h8"/></svg>
+      <h3>مطاردة في المتاهة</h3>
+      <p>اجمع كل النقاط في المتاهة بينما يطاردك الأعداء، حتى يقلب معزز الموازين.</p>
+      <div class="cta"><span class="btn off">قريبًا</span></div>
+    </article>
+
+    <article class="card" style="--c:var(--chatgpt)">
+      <div class="top"><span class="who">CHATGPT · 2D</span><span class="pill">قريبًا</span></div>
+      <svg class="ico" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 52h16V38h14v-12h22M6 52h52"/><circle cx="14" cy="28" r="5"/></svg>
+      <h3>لعبة منصات</h3>
+      <p>اركض واقفز عبر مرحلة بمنصات متحركة ومقتنيات ونقطة حفظ وزعيم.</p>
+      <div class="cta"><span class="btn off">قريبًا</span></div>
+    </article>
+
+  </div>
+</section>
+
+<section aria-labelledby="score">
+  <h2 id="score">كيف يتم التقييم</h2>
+  <p class="sub">المعايير الستة نفسها، بدرجات من 0 إلى 5 بعد كل لعبة. تظهر الدرجات عند اكتمال كل لعبة.</p>
+  <div class="scroller"><table>
+    <thead><tr><th>اللعبة</th><th>أي جهاز، وضعان</th><th>التحكم</th><th>المظهر</th><th>الصوت</th><th>المحتوى</th><th>جهد الإنشاء</th></tr></thead>
+    <tbody>
+      <tr style="--c:var(--claude)"><td><span class="dot"></span>Hive Breach · Claude</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td></tr>
+      <tr style="--c:var(--claude)"><td><span class="dot"></span>لعبة ثلاثية الأبعاد · Claude</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td></tr>
+      <tr style="--c:var(--gemini)"><td><span class="dot"></span>سباق · Gemini</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td></tr>
+      <tr style="--c:var(--copilot)"><td><span class="dot"></span>طائرة مقاتلة · Copilot</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td></tr>
+      <tr style="--c:var(--mistral)"><td><span class="dot"></span>متاهة · Mistral</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td></tr>
+      <tr style="--c:var(--chatgpt)"><td><span class="dot"></span>منصات · ChatGPT</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section aria-labelledby="method">
+  <h2 id="method">كيف يتم العمل</h2>
+  <p class="sub">الانضباط في التسليم لا يقل أهمية عن الألعاب، لذا تتبع كل لعبة العملية البسيطة نفسها.</p>
+  <ol class="steps">
+    <li><b>تكليف واحد</b><span>المتطلبات نفسها لكل منصة: ملف HTML واحد، لمس ولوحة مفاتيح، صوت، مرحلة كاملة، أفقي وعمودي.</span></li>
+    <li><b>إنشاء بوقت محدد</b><span>لكل لعبة عدد ثابت من التكرارات. يتم تسجيل الوقت والأوامر والتكلفة.</span></li>
+    <li><b>اختبار على الهاتف</b><span>تُفتح كل لعبة على هاتف حقيقي وحاسوب قبل إدراجها.</span></li>
+    <li><b>التقييم والنشر</b><span>تُقيَّم وفق المعايير الستة أعلاه، مع ملاحظات عمّا نجح وما احتاج إلى إصلاح.</span></li>
+  </ol>
+  <p class="sub" style="margin-top:16px">التكليف المشترك موجود في <a href="../brief/">صفحة أدوات الإنشاء</a>.</p>
+</section>
+<section aria-labelledby="cm"><h2 id="cm">التعليقات</h2><p class="sub">جرّبتَ لعبة؟ اترك رسالة. تظهر التعليقات بعد المراجعة، بأي لغة، ويمكن ترجمتها عند الطلب.</p><div id="comments" data-sitekey="" data-lang="ar"></div></section>
+</main>
+
+<footer><div class="wrap">
+  <p>الزوّار: <b id="visitor-count">–</b></p>
+  <p>صُمّم وأُدير بواسطة Michaël Miguel. جميع الألعاب مولّدة بالذكاء الاصطناعي بعناوين وشخصيات أصلية.</p>
+  <p>Claude وChatGPT وGemini وCopilot وMistral علامات تجارية لأصحابها. هذه الصفحة غير تابعة لهم ولا مدعومة منهم.</p>
+</div></footer>
+<script>window.SK_COMMENTS={send:"إرسال",name:"اسمك",message:"رسالتك (20 حرفًا على الأقل)",pending:"شكرًا! سيظهر تعليقك بعد المراجعة.",error:"حدث خطأ، يرجى المحاولة مرة أخرى.",translate:"ترجمة",original:"عرض الأصل",empty:"لا توجد تعليقات بعد. كن الأول.",like:"إعجاب"};</script><script src="../assets/comments.js" defer></script><script src="../assets/visits.js" defer></script></body>
+</html>

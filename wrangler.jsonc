@@ -1,0 +1,9 @@
+{
+  "name": "ai-arcade",
+  "main": "src/index.js",
+  "compatibility_date": "2026-11-01",
+  "assets": { "directory": "./public", "binding": "ASSETS" },
+  "ai": { "binding": "AI" },
+  "d1_databases": [{ "binding": "DB", "database_name": "ai-arcade", "database_id": "REPLACE_WITH_YOUR_D1_ID" }],
+  "triggers": { "crons": ["17 3 * * *"] }
+}

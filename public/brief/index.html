@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shared Game Brief</title>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Barlow+Semi+Condensed:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: a single column work sheet; one shared brief on top, one copy card per platform below. */
+:root{--bg:#0b0e13;--panel:#131923;--line:#25303f;--ink:#e8eef5;--mute:#93a3b5;--amber:#ffb02e;
+ --display:'Bungee','Arial Black',sans-serif;--body:'Barlow Semi Condensed','Arial Narrow',system-ui,sans-serif;color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.45 var(--body)}
+main{max-width:760px;margin:0 auto;padding:28px 16px 64px;display:flex;flex-direction:column;gap:22px}
+.eyebrow{font:600 12px var(--body);letter-spacing:.28em;color:var(--amber);margin:0}
+h1{font:400 clamp(30px,8vw,48px)/1 var(--display);margin:6px 0 8px;text-wrap:balance}
+h2{font:400 18px var(--display);margin:0 0 8px;letter-spacing:.02em}
+p{margin:0;color:var(--mute);max-width:62ch}
+.card{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--c,var(--amber));padding:16px;display:flex;flex-direction:column;gap:10px}
+pre{margin:0;white-space:pre-wrap;word-break:break-word;font:500 14px/1.5 ui-monospace,Menlo,Consolas,monospace;color:#cfe0ef;background:#0b1118;border:1px solid var(--line);padding:12px;max-height:340px;overflow:auto}
+button{font:600 14px var(--body);letter-spacing:.12em;text-transform:uppercase;padding:11px 16px;border:0;background:var(--c,var(--amber));color:#10141a;cursor:pointer;align-self:flex-start}
+button:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.ok{font-size:14px;color:#7fe0a8;min-height:1.2em}
+ol{margin:0;padding-left:20px;color:var(--mute)} li{margin:2px 0}
+</style>
+</head>
+<body>
+<main>
+<header>
+<p class="eyebrow">AI ARCADE · BUILD KIT</p>
+<h1>Shared game brief</h1>
+<p>Paste the shared brief and one game line into each AI platform. Same rules for everyone, so the results can be scored fairly.</p>
+</header>
+
+<section class="card" style="--c:#ffb02e">
+<h2>1 · Shared brief (same for every platform)</h2>
+<pre id="shared">Build a complete, original 2D browser game as ONE self-contained HTML file (HTML, CSS and JavaScript in the same file, no build step, no external image or audio files).
+
+Requirements:
+1. Runs on any device (phone, tablet, desktop) in BOTH landscape and portrait: full-screen responsive canvas that re-lays out on rotation (never a "please rotate" screen), on-screen touch controls plus keyboard.
+2. One complete level or stage with a clear goal, rising difficulty, a win screen, a game-over screen and a restart button.
+3. Modern visual style, drawn in code. Original title, characters and names: no trademarked or copyrighted names, characters or logos.
+4. Sound effects and music generated with the Web Audio API, a mute button, audio starting only after the first tap.
+5. HUD with score and lives or health, plus a pause button.
+6. Smooth 60 fps on a mid-range phone.
+7. Short title screen that explains the controls.
+
+Deliver the single HTML file first. Then list three improvements you would make with more time.
+
+GAME: [paste the game line below]</pre>
+<button data-copy="shared">Copy shared brief</button><div class="ok" aria-live="polite"></div>
+</section>
+
+<section class="card" style="--c:#8ab4ff">
+<h2>2 · Gemini game line</h2>
+<pre id="g1">A 2D arcade racing game with a vertical scrolling road: dodge traffic, collect boost and fuel pickups, and reach a finish line after about two minutes.</pre>
+<button data-copy="g1">Copy game line</button><div class="ok" aria-live="polite"></div>
+</section>
+
+<section class="card" style="--c:#3fe0ff">
+<h2>3 · Copilot game line</h2>
+<pre id="g2">A 2D vertical air-fighter shooter: waves of enemy aircraft, power-ups, a mid-level mini boss and a final boss.</pre>
+<button data-copy="g2">Copy game line</button><div class="ok" aria-live="polite"></div>
+</section>
+
+<section class="card" style="--c:#ff6a4a">
+<h2>4 · Mistral game line</h2>
+<pre id="g3">A 2D maze chase game: collect every pellet in a labyrinth while avoiding patrolling enemies, with a power-up that lets you turn the tables for a few seconds. Use an original title and original characters.</pre>
+<button data-copy="g3">Copy game line</button><div class="ok" aria-live="polite"></div>
+</section>
+
+<section class="card" style="--c:#3ddc97">
+<h2>5 · ChatGPT game line</h2>
+<pre id="g4">A 2D platformer: run and jump through one themed level with moving platforms, collectibles, enemies to avoid or defeat, a checkpoint and a boss at the end. Use an original hero and an original title.</pre>
+<button data-copy="g4">Copy game line</button><div class="ok" aria-live="polite"></div>
+</section>
+
+<section class="card">
+<h2>After each build, note down</h2>
+<ol><li>Time spent and number of prompts or fixes needed</li><li>Cost (free tier, subscription or API)</li><li>What worked first time and what had to be fixed</li><li>Score out of 5 for each criterion on the landing page</li></ol>
+</section>
+</main>
+<script>
+document.querySelectorAll('button[data-copy]').forEach(function(b){
+  b.addEventListener('click',function(){
+    var el=document.getElementById(b.dataset.copy), msg=b.nextElementSibling, text=el.textContent;
+    function sel(){var r=document.createRange();r.selectNodeContents(el);var s=getSelection();s.removeAllRanges();s.addRange(r);msg.textContent='Select and copy the highlighted text.'}
+    try{navigator.clipboard.writeText(text).then(function(){msg.textContent='Copied.'},sel)}catch(e){sel()}
+  });
+});
+</script>
+</body>
+</html>
