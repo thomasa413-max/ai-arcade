@@ -274,8 +274,8 @@ function tryBackdrop(world){
 // OpenAI-generated photographic textures replace the procedural ones when present (same pipeline, no code change)
 function tryTexture(name,apply){ const im=new Image(); im.onload=()=>apply(im); im.src='assets/tex-'+name+'.webp' }
 function swapMap(mat,im,rx,ry,normalStrength){
-  const t=new THREE.Texture(im); t.wrapS=t.wrapT=THREE.RepeatWrapping; t.repeat.set(rx,ry); t.colorSpace=THREE.SRGBColorSpace; t.anisotropy=8; t.needsUpdate=true; mat.map=t;
-  if(normalStrength){const c=mkCanvas(512), x=c.getContext('2d'); x.drawImage(im,0,0,512,512); const n=new THREE.CanvasTexture(heightNormal(c,normalStrength)); n.wrapS=n.wrapT=THREE.RepeatWrapping; n.repeat.set(rx,ry); mat.normalMap=n}
+  const t=new THREE.Texture(im); t.wrapS=t.wrapT=THREE.MirroredRepeatWrapping; t.repeat.set(rx,ry); t.colorSpace=THREE.SRGBColorSpace; t.anisotropy=8; t.needsUpdate=true; mat.map=t;
+  if(normalStrength){const c=mkCanvas(512), x=c.getContext('2d'); x.drawImage(im,0,0,512,512); const n=new THREE.CanvasTexture(heightNormal(c,normalStrength)); n.wrapS=n.wrapT=THREE.MirroredRepeatWrapping; n.repeat.set(rx,ry); mat.normalMap=n}
   mat.needsUpdate=true;
 }
 function loadPhotoTextures(){
@@ -283,7 +283,10 @@ function loadPhotoTextures(){
   tryTexture('ground',im=>swapMap(MAT.ground,im,30,30,1.4));
   tryTexture('bark',im=>{swapMap(MAT.bark,im,1,2,1.8); swapMap(MAT.wood,im,1,1,1.8)});
   tryTexture('rock',im=>swapMap(MAT.rock,im,1,1,2));
-  tryTexture('leaf',im=>{const t=new THREE.Texture(im); t.colorSpace=THREE.SRGBColorSpace; t.needsUpdate=true; MAT.leaf.map=t; MAT.leaf.needsUpdate=true});
+  tryTexture('leaf',im=>{ // the photo has a white background: key it out into an alpha cutout
+    const c=mkCanvas(512), x=c.getContext('2d',{willReadFrequently:true}); x.drawImage(im,0,0,512,512); const d=x.getImageData(0,0,512,512), a=d.data;
+    for(let i=0;i<a.length;i+=4){ const m=Math.min(a[i],a[i+1],a[i+2]); const al=clamp((238-m)/22,0,1); a[i+3]=al*255; if(al<1){ a[i]=lerp(a[i],40,1-al); a[i+1]=lerp(a[i+1],110,1-al); a[i+2]=lerp(a[i+2],36,1-al) } }
+    x.putImageData(d,0,0); const t=new THREE.CanvasTexture(c); t.colorSpace=THREE.SRGBColorSpace; t.anisotropy=8; MAT.leaf.map=t; MAT.leaf.needsUpdate=true; });
 }
 
 /* ================= game state ================= */
@@ -522,7 +525,7 @@ function renderMirror(){
 function boot(){
   initLang(); resize(); scene.fog=new THREE.Fog(WORLDS[0].fog,45,200); renderer.setClearColor(WORLDS[0].horizon);
   stageCfg=WORLDS[0].stages[0]; S.world=1; sceneryZ=20; archZ=-80; rowZ=-9999; S.z=0; S.state='title'; topUp();
-  tryBackdrop(1);
+  tryBackdrop(1); loadPhotoTextures();
   const bi=new Image(); bi.onload=()=>document.documentElement.style.setProperty('--title-img',`url(assets/title.webp)`); bi.src='assets/title.webp';
   showTitle(); requestAnimationFrame(frame);
 }
