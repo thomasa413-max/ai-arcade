@@ -289,6 +289,63 @@ function loadPhotoTextures(){
     x.putImageData(d,0,0); const t=new THREE.CanvasTexture(c); t.colorSpace=THREE.SRGBColorSpace; t.anisotropy=8; MAT.leaf.map=t; MAT.leaf.needsUpdate=true; });
 }
 
+/* ---- photographic trees and explorer sprites (OpenAI images keyed from white; procedural models remain as fallback) ---- */
+const PTREES=[]; let sprMesh=null; const SPRT={run:null,jump:null,slide:null}; const CELL_W=256, CELL_H=384, SPR_H=2.15;
+function loadAsset(name,cb){ const im=new Image(); im.onload=()=>cb(im); im.src='assets/'+name+'.webp' }
+function keyCanvas(im,w,h){ // white background -> alpha, with soft edge
+  const c=document.createElement('canvas'); c.width=w; c.height=h; const x=c.getContext('2d',{willReadFrequently:true}); x.drawImage(im,0,0,w,h);
+  const d=x.getImageData(0,0,w,h), a=d.data;
+  for(let i=0;i<a.length;i+=4){ const m=Math.min(a[i],a[i+1],a[i+2]), al=clamp((240-m)/24,0,1); a[i+3]=al*255; if(al<1){ a[i]=lerp(a[i],50,1-al); a[i+1]=lerp(a[i+1],60,1-al); a[i+2]=lerp(a[i+2],40,1-al) } }
+  x.putImageData(d,0,0); return c;
+}
+function bbox(c,x0=0,y0=0,w=c.width,h=c.height){ const a=c.getContext('2d',{willReadFrequently:true}).getImageData(x0,y0,w,h).data; let l=w,t=h,r=-1,b=-1;
+  for(let j=0;j<h;j++)for(let i=0;i<w;i++) if(a[(j*w+i)*4+3]>40){ if(i<l)l=i; if(i>r)r=i; if(j<t)t=j; if(j>b)b=j }
+  return r<0?null:{x:x0+l,y:y0+t,w:r-l+1,h:b-t+1} }
+function loadPhotoTree(name,H){
+  loadAsset(name,im=>{
+    const k=keyCanvas(im,512,Math.round(512*im.height/im.width)), bb=bbox(k); if(!bb)return;
+    const t=document.createElement('canvas'); t.width=bb.w; t.height=bb.h; t.getContext('2d').drawImage(k,bb.x,bb.y,bb.w,bb.h,0,0,bb.w,bb.h);
+    const tex=new THREE.CanvasTexture(t); tex.colorSpace=THREE.SRGBColorSpace; tex.anisotropy=8;
+    const mat=new THREE.MeshStandardMaterial({map:tex,alphaTest:.5,side:THREE.DoubleSide,roughness:1,metalness:0,envMapIntensity:.6});
+    const w=H*bb.w/bb.h, p1=new THREE.PlaneGeometry(w,H); p1.translate(0,H/2,0); const p2=p1.clone().rotateY(Math.PI/2);
+    const g=mergeGeometries([p1,p2],false); g.userData.mat=mat; PTREES.push(g);
+  });
+}
+function atlasFromCells(cells,scaleMul=1){ // cells: array of canvases cropped to bbox -> one cell each, feet bottom-centred
+  return cells;
+}
+function loadExplorer(){
+  loadAsset('explorer-run',im=>{
+    const cols=4, rows=2, cw=Math.round(im.width/cols), ch=Math.round(im.height/rows);
+    const full=keyCanvas(im,im.width,im.height), boxes=[];
+    for(let r=0;r<rows;r++)for(let c=0;c<cols;c++) boxes.push(bbox(full,c*cw,r*ch,cw,ch));
+    const ok=boxes.filter(Boolean); if(ok.length<4)return;
+    const hMax=Math.max(...ok.map(b=>b.h)), wMax=Math.max(...ok.map(b=>b.w)), sc=Math.min((CELL_H*.94)/hMax,(CELL_W*.96)/wMax);
+    const at=document.createElement('canvas'); at.width=CELL_W*cols; at.height=CELL_H*rows; const ax=at.getContext('2d');
+    boxes.forEach((b,i)=>{ if(!b)return; const c=i%cols, r=(i/cols)|0, dw=b.w*sc, dh=b.h*sc; ax.drawImage(full,b.x,b.y,b.w,b.h,c*CELL_W+(CELL_W-dw)/2,r*CELL_H+CELL_H*.97-dh,dw,dh) });
+    const tex=new THREE.CanvasTexture(at); tex.colorSpace=THREE.SRGBColorSpace; tex.anisotropy=8; tex.repeat.set(1/cols,1/rows); SPRT.run=tex; SPRT.frames=cols*rows; SPRT.cols=cols; SPRT.rows=rows; makeSprite();
+  });
+  const pose=(name,key,fit)=>loadAsset(name,im=>{
+    const f=keyCanvas(im,512,Math.round(512*im.height/im.width)), bb=bbox(f); if(!bb)return;
+    const at=document.createElement('canvas'); at.width=CELL_W; at.height=CELL_H; const sc=Math.min((CELL_H*fit)/bb.h,(CELL_W*.96)/bb.w), dw=bb.w*sc, dh=bb.h*sc;
+    at.getContext('2d').drawImage(f,bb.x,bb.y,bb.w,bb.h,(CELL_W-dw)/2,CELL_H*.97-dh,dw,dh);
+    const tex=new THREE.CanvasTexture(at); tex.colorSpace=THREE.SRGBColorSpace; tex.anisotropy=8; SPRT[key]=tex });
+  pose('explorer-jump','jump',.94); pose('explorer-slide','slide',.6);
+}
+function makeSprite(){
+  if(sprMesh)return; const mat=new THREE.MeshBasicMaterial({map:SPRT.run,transparent:true,alphaTest:.35,toneMapped:false,side:THREE.DoubleSide,depthWrite:true});
+  const w=SPR_H*CELL_W/CELL_H; sprMesh=new THREE.Mesh(new THREE.PlaneGeometry(w,SPR_H),mat); sprMesh.position.y=SPR_H/2-SPR_H*.03; sprMesh.renderOrder=2; player.add(sprMesh); body.visible=false;
+}
+function sprUpdate(run,air,slide,lean){
+  if(!sprMesh)return; const m=sprMesh.material; let tex=SPRT.run;
+  if(air&&SPRT.jump)tex=SPRT.jump; else if(slide&&SPRT.slide)tex=SPRT.slide;
+  if(m.map!==tex){ m.map=tex; m.needsUpdate=true }
+  if(tex===SPRT.run){ const f=Math.floor((((run/(Math.PI*2))%1)+1)%1*SPRT.frames), c=f%SPRT.cols, r=(f/SPRT.cols)|0; tex.offset.set(c/SPRT.cols,1-(r+1)/SPRT.rows) }
+  sprMesh.rotation.z=lean; sprMesh.position.y=SPR_H/2-SPR_H*.03+(air||slide?0:Math.abs(Math.sin(run))*.05);
+}
+function loadPhotoModels(){ loadPhotoTree('tree-1',9); loadPhotoTree('tree-2',10); loadPhotoTree('tree-3',11); loadExplorer() }
+const treePool=()=>PTREES.length?PTREES:[G.treeA,G.treeB];
+
 /* ================= game state ================= */
 const G0={state:'title',world:1,stage:0,z:0,speed:0,base:0,hp:3,coins:0,spawnedCoins:0,hits:0,inv:0,slow:0,x:0,lane:1,y:0,vy:0,slide:0,shield:0,magnet:0,t:0,shake:0,flash:0,runT:0,gap:22,done:false,buffer:null,bufT:0,hint:0};
 const S=Object.assign({},G0);
@@ -308,7 +365,7 @@ function topUp(){
   while(sceneryZ>S.z-190){
     const z=sceneryZ; sceneryZ-=rnd(3.5,7);
     for(const s of [-1,1]){
-      const r=Math.random(), kind=r<.32?G.treeA:r<.55?G.treeB:r<.68?G.palm:r<.78?G.rocks:r<.9?G.bush:G.fern;
+      const r=Math.random(), kind=r<.68?pick(treePool()):r<.78?G.rocks:r<.9?G.bush:G.fern;
       const m=mk(kind), sc=rnd(.8,1.35); m.scale.setScalar(sc); m.position.set(s*(PATH_W/2+rnd(1.8,16)),0,z+rnd(-2,2)); m.rotation.y=Math.random()*6.28; addMesh(props,m,m.position.z);
     }
     if(Math.random()<.18){const m=mk(G.pillar); const s=pick([-1,1]); m.position.set(s*(PATH_W/2+2.6),0,z); addMesh(props,m,z)}
@@ -402,6 +459,7 @@ function update(dt){
   const sw=air?0:Math.sin(run)*.9; legL.rotation.x=air?-.7:sw; legR.rotation.x=air?.5:-sw; armL.rotation.x=air?-2.4:-sw*.9; armR.rotation.x=air?-2.2:sw*.9;
   body.position.y=air?0:Math.abs(Math.sin(run))*.07; body.rotation.x=S.slide>0?-1.15:.12; body.position.z=S.slide>0?.15:0; body.position.y+=S.slide>0?-.15:0;
   body.rotation.z=clamp((tx-player.position.x)*-.18,-.35,.35);
+  sprUpdate(run,air,S.slide>0,clamp((tx-player.position.x)*-.18,-.35,.35));
   player.visible=S.inv>0?((S.t*18)|0)%2===0:true;
   shieldBub.visible=S.shield>0; shadow.scale.setScalar(clamp(1-S.y*.2,.5,1));
   // guardian
@@ -510,7 +568,7 @@ function frame(ts){
   requestAnimationFrame(frame);
   const dt=Math.min(.05,(ts-last)/1000||0); last=ts;
   if(S.state==='play'){update(dt); updateHud()}
-  else if(S.state==='title'){ S.t+=dt; S.z-=dt*6; player.position.set(0,0,S.z); const run=S.t*6; legL.rotation.x=Math.sin(run)*.9;legR.rotation.x=-Math.sin(run)*.9;armL.rotation.x=-Math.sin(run)*.8;armR.rotation.x=Math.sin(run)*.8; path.position.z=S.z-60; pathTex.offset.y=(S.z/TILE)%1; side.position.z=S.z; curbs.forEach(c=>c.position.z=S.z-60); sky.position.z=S.z; ridge.position.z=S.z; sunSpr.position.set(60,110,S.z-380); if(backdrop)backdrop.position.set(0,backdrop.userData.h*.32+18,S.z-330); topUp(); recycle(); cam.position.set(2.6,2.8,S.z+6); cam.lookAt(0,1.4,S.z-4) }
+  else if(S.state==='title'){ S.t+=dt; S.z-=dt*6; player.position.set(0,0,S.z); const run=S.t*6; sprUpdate(S.t*3.3,false,false,0); legL.rotation.x=Math.sin(run)*.9;legR.rotation.x=-Math.sin(run)*.9;armL.rotation.x=-Math.sin(run)*.8;armR.rotation.x=Math.sin(run)*.8; path.position.z=S.z-60; pathTex.offset.y=(S.z/TILE)%1; side.position.z=S.z; curbs.forEach(c=>c.position.z=S.z-60); sky.position.z=S.z; ridge.position.z=S.z; sunSpr.position.set(60,110,S.z-380); if(backdrop)backdrop.position.set(0,backdrop.userData.h*.32+18,S.z-330); topUp(); recycle(); cam.position.set(2.6,2.8,S.z+6); cam.lookAt(0,1.4,S.z-4) }
   if(S.state!=='title') camUpdate();
   renderer.render(scene,cam);
   if(stageCfg&&stageCfg.chase&&(S.state==='play'||S.state==='pause')&&document.body.classList.contains('playing')) renderMirror();
@@ -525,7 +583,7 @@ function renderMirror(){
 function boot(){
   initLang(); resize(); scene.fog=new THREE.Fog(WORLDS[0].fog,45,200); renderer.setClearColor(WORLDS[0].horizon);
   stageCfg=WORLDS[0].stages[0]; S.world=1; sceneryZ=20; archZ=-80; rowZ=-9999; S.z=0; S.state='title'; topUp();
-  tryBackdrop(1); loadPhotoTextures();
+  tryBackdrop(1); loadPhotoTextures(); loadPhotoModels();
   const bi=new Image(); bi.onload=()=>document.documentElement.style.setProperty('--title-img',`url(assets/title.webp)`); bi.src='assets/title.webp';
   showTitle(); requestAnimationFrame(frame);
 }

@@ -81,6 +81,36 @@
    "file": "w5-card",
    "size": "1024x1024",
    "prompt": "Square emblem scene for a game level called Neon Metropolis: a futuristic stone-and-neon gate with glowing cyan glyph between skyscrapers, centered composition."
+  },
+  {
+   "file": "tree-1",
+   "size": "1024x1536",
+   "prompt": "One single complete photorealistic tropical rainforest tree seen from the side, full tree from roots to crown, broad dense green canopy and a thick textured trunk, centered, on a pure white background, soft even daylight, no ground, no cast shadow, no text."
+  },
+  {
+   "file": "tree-2",
+   "size": "1024x1536",
+   "prompt": "One single complete photorealistic large jungle tree with buttress roots and hanging vines, full tree from roots to crown, centered, on a pure white background, soft even daylight, no ground, no cast shadow, no text."
+  },
+  {
+   "file": "tree-3",
+   "size": "1024x1536",
+   "prompt": "One single complete photorealistic tall tropical palm tree with a slender curved trunk and a full crown of fronds, centered, on a pure white background, soft even daylight, no ground, no cast shadow, no text."
+  },
+  {
+   "file": "explorer-run",
+   "size": "1536x1024",
+   "prompt": "A character sprite sheet laid out in a strict grid of 4 columns by 2 rows, 8 equal cells, the SAME adventurer in every cell seen from directly BEHIND while running away from the viewer, full body from head to boots, realistic photographic style. He wears a brown fedora, a teal jacket, a brown leather backpack, khaki trousers and brown boots. The 8 cells show a smooth run cycle in order: left foot contact, left passing, left push-off, flight, right foot contact, right passing, right push-off, flight. Identical size, outfit and position in every cell, each figure fully inside its cell and not touching the cell edges, no cell borders or lines, on a pure white background, soft even daylight, no ground, no cast shadow, no text."
+  },
+  {
+   "file": "explorer-jump",
+   "size": "1024x1024",
+   "prompt": "The same adventurer (brown fedora, teal jacket, brown leather backpack, khaki trousers, brown boots) seen from directly behind, jumping high with knees bent and arms out, full body, realistic photographic style, centered, on a pure white background, soft even daylight, no ground, no cast shadow, no text."
+  },
+  {
+   "file": "explorer-slide",
+   "size": "1024x1024",
+   "prompt": "The same adventurer (brown fedora, teal jacket, brown leather backpack, khaki trousers, brown boots) seen from directly behind, sliding low and ducking under an obstacle with the body crouched and leaning back, full body, realistic photographic style, centered, on a pure white background, soft even daylight, no ground, no cast shadow, no text."
   }
  ]
 }
