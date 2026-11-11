@@ -39,18 +39,19 @@ CSS = """
 .sk-actions button{font:600 13px var(--body);background:transparent;color:var(--mute);border:1px solid var(--line);padding:5px 10px;cursor:pointer;border-radius:2px}
 .sk-actions button[aria-pressed=true]{color:var(--amber);border-color:var(--amber)}
 @media (max-width:480px){.langs{justify-content:flex-start}}
+.scroller th:first-child,.scroller td:first-child{position:sticky;inset-inline-start:0;background:var(--panel);min-width:132px;z-index:1;box-shadow:1px 0 0 var(--line)}
+.scroller th{white-space:normal;min-width:84px;vertical-align:bottom}
 """
 
 def esc(s): return s.replace("\\", "\\\\").replace('"', '\\"')
 
 def build(lang):
     h = SRC.read_text(encoding="utf-8")
-    h = h.replace("{{HB}}", "../games/hive-breach/").replace("{{BRIEF}}", "../brief/")
+    h = h.replace("{{HB}}", "../games/hive-breach/?lang=" + lang).replace("{{BRIEF}}", "../brief/")
     h = h.replace("Every game is original, runs in the browser on phone and desktop, and is a single page with its own sound. Games unlock here as they are finished.",
                   "Every game is original, runs in the browser on any device, in landscape and portrait, and is a single page with its own sound. Games unlock here as they are finished.")
     h = h.replace("The same requirements for every platform: one HTML file, touch and keyboard, sound, one complete level.",
                   "The same requirements for every platform: one HTML file, touch and keyboard, sound, one complete level, landscape and portrait.")
-    h = h.replace("<th>Phone and desktop</th>", "<th>Any device, both orientations</th>")
     if lang != "en":
         for en, tr in sorted(TR[lang].items(), key=lambda kv: -len(kv[0])):
             h = h.replace(en, tr)
