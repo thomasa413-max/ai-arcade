@@ -80,6 +80,8 @@ footer p{margin:0 0 6px;max-width:80ch}
 .sk-actions button{font:600 13px var(--body);background:transparent;color:var(--mute);border:1px solid var(--line);padding:5px 10px;cursor:pointer;border-radius:2px}
 .sk-actions button[aria-pressed=true]{color:var(--amber);border-color:var(--amber)}
 @media (max-width:480px){.langs{justify-content:flex-start}}
+.scroller th:first-child,.scroller td:first-child{position:sticky;inset-inline-start:0;background:var(--panel);min-width:132px;z-index:1;box-shadow:1px 0 0 var(--line)}
+.scroller th{white-space:normal;min-width:84px;vertical-align:bottom}
 </style>
 <link rel="alternate" hreflang="en" href="https://pixelmindarcade.com/en/"><link rel="alternate" hreflang="fr" href="https://pixelmindarcade.com/fr/"><link rel="alternate" hreflang="es" href="https://pixelmindarcade.com/es/"><link rel="alternate" hreflang="pt" href="https://pixelmindarcade.com/pt/"><link rel="alternate" hreflang="de" href="https://pixelmindarcade.com/de/"><link rel="alternate" hreflang="it" href="https://pixelmindarcade.com/it/"><link rel="alternate" hreflang="ar" href="https://pixelmindarcade.com/ar/"><link rel="alternate" hreflang="zh" href="https://pixelmindarcade.com/zh/"><link rel="alternate" hreflang="x-default" href="https://pixelmindarcade.com/en/"></head>
 <body>
@@ -102,7 +104,7 @@ footer p{margin:0 0 6px;max-width:80ch}
       <div class="top"><span class="who">CLAUDE · 2D</span><span class="pill live">JOGÁVEL</span></div>
       <svg class="ico" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><circle cx="32" cy="32" r="16"/><path d="M32 8v10M32 46v10M8 32h10M46 32h10"/><circle cx="32" cy="32" r="3" fill="currentColor"/></svg>
       <h3>Hive Breach</h3>
-      <p>Run and gun numa estação espacial abandonada. Quatro tipos de alienígenas, armas para apanhar, pontos de controlo e uma Rainha da colmeia como chefe, com música sintetizada que reage à ação.</p>
+      <p>Run-and-gun numa estação espacial abandonada. Três níveis, três chefes, armas para apanhar, pontos de controlo e música sintetizada que reage à ação.</p>
       <div class="cta"><a class="btn" href="../games/hive-breach/?lang=pt">Jogar Hive Breach</a></div>
     </article>
 
@@ -153,9 +155,9 @@ footer p{margin:0 0 6px;max-width:80ch}
   <h2 id="score">Como são avaliados</h2>
   <p class="sub">Os mesmos seis critérios, de 0 a 5 após cada criação. As notas aparecem quando cada jogo está pronto.</p>
   <div class="scroller"><table>
-    <thead><tr><th>Jogo</th><th>Qualquer dispositivo, 2 orientações</th><th>Controlos</th><th>Visual</th><th>Som</th><th>Conteúdo</th><th>Esforço de criação</th></tr></thead>
+    <thead><tr><th>Jogo</th><th>Funciona em tudo</th><th>Jogável em 30 s</th><th>Diversão</th><th>Completude</th><th>Acabamento</th><th>Cumpre o briefing</th></tr></thead>
     <tbody>
-      <tr style="--c:var(--claude)"><td><span class="dot"></span>Hive Breach · Claude</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td></tr>
+      <tr style="--c:var(--claude)"><td><span class="dot"></span>Hive Breach · Claude</td><td class="n">4</td><td class="n">4</td><td class="n">–</td><td class="n">5</td><td class="n">4</td><td class="n">5</td></tr>
       <tr style="--c:var(--claude)"><td><span class="dot"></span>Jogo 3D · Claude</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td></tr>
       <tr style="--c:var(--gemini)"><td><span class="dot"></span>Corridas · Gemini</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td></tr>
       <tr style="--c:var(--copilot)"><td><span class="dot"></span>Caça aéreo · Copilot</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td></tr>
@@ -163,6 +165,7 @@ footer p{margin:0 0 6px;max-width:80ch}
       <tr style="--c:var(--chatgpt)"><td><span class="dot"></span>Plataformas · ChatGPT</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td></tr>
     </tbody>
   </table></div>
+  <p class="sub" style="margin-top:12px">Os critérios técnicos são verificados com os mesmos testes em telemóvel e computador para cada jogo. A diversão é pontuada pelo responsável do projeto depois de jogar. As notas do Hive Breach são provisórias.</p>
 </section>
 
 <section aria-labelledby="method">

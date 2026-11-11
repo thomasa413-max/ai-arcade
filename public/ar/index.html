@@ -80,6 +80,8 @@ footer p{margin:0 0 6px;max-width:80ch}
 .sk-actions button{font:600 13px var(--body);background:transparent;color:var(--mute);border:1px solid var(--line);padding:5px 10px;cursor:pointer;border-radius:2px}
 .sk-actions button[aria-pressed=true]{color:var(--amber);border-color:var(--amber)}
 @media (max-width:480px){.langs{justify-content:flex-start}}
+.scroller th:first-child,.scroller td:first-child{position:sticky;inset-inline-start:0;background:var(--panel);min-width:132px;z-index:1;box-shadow:1px 0 0 var(--line)}
+.scroller th{white-space:normal;min-width:84px;vertical-align:bottom}
 </style>
 <link rel="alternate" hreflang="en" href="https://pixelmindarcade.com/en/"><link rel="alternate" hreflang="fr" href="https://pixelmindarcade.com/fr/"><link rel="alternate" hreflang="es" href="https://pixelmindarcade.com/es/"><link rel="alternate" hreflang="pt" href="https://pixelmindarcade.com/pt/"><link rel="alternate" hreflang="de" href="https://pixelmindarcade.com/de/"><link rel="alternate" hreflang="it" href="https://pixelmindarcade.com/it/"><link rel="alternate" hreflang="ar" href="https://pixelmindarcade.com/ar/"><link rel="alternate" hreflang="zh" href="https://pixelmindarcade.com/zh/"><link rel="alternate" hreflang="x-default" href="https://pixelmindarcade.com/en/"></head>
 <body>
@@ -102,7 +104,7 @@ footer p{margin:0 0 6px;max-width:80ch}
       <div class="top"><span class="who">CLAUDE · 2D</span><span class="pill live">قابلة للعب</span></div>
       <svg class="ico" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><circle cx="32" cy="32" r="16"/><path d="M32 8v10M32 46v10M8 32h10M46 32h10"/><circle cx="32" cy="32" r="3" fill="currentColor"/></svg>
       <h3>Hive Breach</h3>
-      <p>لعبة إطلاق نار وركض في محطة فضائية مهجورة. أربعة أنواع من الفضائيين، وأسلحة للجمع، ونقاط حفظ، وملكة الخلية كزعيم، مع موسيقى مولّدة تتفاعل مع الأحداث.</p>
+      <p>لعبة جري وإطلاق نار في محطة فضائية مهجورة. ثلاث مراحل وثلاثة زعماء، وأسلحة للالتقاط ونقاط حفظ وموسيقى مركّبة تتفاعل مع الأحداث.</p>
       <div class="cta"><a class="btn" href="../games/hive-breach/?lang=ar">العب Hive Breach</a></div>
     </article>
 
@@ -153,9 +155,9 @@ footer p{margin:0 0 6px;max-width:80ch}
   <h2 id="score">كيف يتم التقييم</h2>
   <p class="sub">المعايير الستة نفسها، بدرجات من 0 إلى 5 بعد كل لعبة. تظهر الدرجات عند اكتمال كل لعبة.</p>
   <div class="scroller"><table>
-    <thead><tr><th>اللعبة</th><th>أي جهاز، وضعان</th><th>التحكم</th><th>المظهر</th><th>الصوت</th><th>المحتوى</th><th>جهد الإنشاء</th></tr></thead>
+    <thead><tr><th>اللعبة</th><th>يعمل في كل مكان</th><th>قابلة للعب خلال 30 ثانية</th><th>المتعة</th><th>الاكتمال</th><th>الإتقان</th><th>الالتزام بالتكليف</th></tr></thead>
     <tbody>
-      <tr style="--c:var(--claude)"><td><span class="dot"></span>Hive Breach · Claude</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td></tr>
+      <tr style="--c:var(--claude)"><td><span class="dot"></span>Hive Breach · Claude</td><td class="n">4</td><td class="n">4</td><td class="n">–</td><td class="n">5</td><td class="n">4</td><td class="n">5</td></tr>
       <tr style="--c:var(--claude)"><td><span class="dot"></span>لعبة ثلاثية الأبعاد · Claude</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td></tr>
       <tr style="--c:var(--gemini)"><td><span class="dot"></span>سباق · Gemini</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td></tr>
       <tr style="--c:var(--copilot)"><td><span class="dot"></span>طائرة مقاتلة · Copilot</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td></tr>
@@ -163,6 +165,7 @@ footer p{margin:0 0 6px;max-width:80ch}
       <tr style="--c:var(--chatgpt)"><td><span class="dot"></span>منصات · ChatGPT</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td></tr>
     </tbody>
   </table></div>
+  <p class="sub" style="margin-top:12px">تُفحص المعايير التقنية بالاختبارات نفسها على الهاتف والحاسوب لكل لعبة. أما المتعة فيقيّمها صاحب المشروع بعد اللعب. درجات Hive Breach مؤقتة.</p>
 </section>
 
 <section aria-labelledby="method">

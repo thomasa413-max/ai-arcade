@@ -80,6 +80,8 @@ footer p{margin:0 0 6px;max-width:80ch}
 .sk-actions button{font:600 13px var(--body);background:transparent;color:var(--mute);border:1px solid var(--line);padding:5px 10px;cursor:pointer;border-radius:2px}
 .sk-actions button[aria-pressed=true]{color:var(--amber);border-color:var(--amber)}
 @media (max-width:480px){.langs{justify-content:flex-start}}
+.scroller th:first-child,.scroller td:first-child{position:sticky;inset-inline-start:0;background:var(--panel);min-width:132px;z-index:1;box-shadow:1px 0 0 var(--line)}
+.scroller th{white-space:normal;min-width:84px;vertical-align:bottom}
 </style>
 <link rel="alternate" hreflang="en" href="https://pixelmindarcade.com/en/"><link rel="alternate" hreflang="fr" href="https://pixelmindarcade.com/fr/"><link rel="alternate" hreflang="es" href="https://pixelmindarcade.com/es/"><link rel="alternate" hreflang="pt" href="https://pixelmindarcade.com/pt/"><link rel="alternate" hreflang="de" href="https://pixelmindarcade.com/de/"><link rel="alternate" hreflang="it" href="https://pixelmindarcade.com/it/"><link rel="alternate" hreflang="ar" href="https://pixelmindarcade.com/ar/"><link rel="alternate" hreflang="zh" href="https://pixelmindarcade.com/zh/"><link rel="alternate" hreflang="x-default" href="https://pixelmindarcade.com/en/"></head>
 <body>
@@ -102,7 +104,7 @@ footer p{margin:0 0 6px;max-width:80ch}
       <div class="top"><span class="who">CLAUDE · 2D</span><span class="pill live">可试玩</span></div>
       <svg class="ico" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><circle cx="32" cy="32" r="16"/><path d="M32 8v10M32 46v10M8 32h10M46 32h10"/><circle cx="32" cy="32" r="3" fill="currentColor"/></svg>
       <h3>Hive Breach</h3>
-      <p>在废弃空间站中的横版射击。四种外星生物、可拾取的武器、检查点和蜂巢女王首领，配有随动作变化的合成音乐。</p>
+      <p>在废弃空间站里奔跑射击。三个关卡、三个 Boss、武器拾取、检查点，以及随战况变化的合成音乐。</p>
       <div class="cta"><a class="btn" href="../games/hive-breach/?lang=zh">玩 Hive Breach</a></div>
     </article>
 
@@ -153,9 +155,9 @@ footer p{margin:0 0 6px;max-width:80ch}
   <h2 id="score">评分方式</h2>
   <p class="sub">同样的六项标准，每款游戏完成后按 0 到 5 分评分。评分在游戏完成后公布。</p>
   <div class="scroller"><table>
-    <thead><tr><th>游戏</th><th>任何设备，两种方向</th><th>操控</th><th>画面</th><th>音效</th><th>内容</th><th>制作投入</th></tr></thead>
+    <thead><tr><th>游戏</th><th>随处可玩</th><th>30 秒上手</th><th>趣味手感</th><th>完整度</th><th>打磨</th><th>符合需求</th></tr></thead>
     <tbody>
-      <tr style="--c:var(--claude)"><td><span class="dot"></span>Hive Breach · Claude</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td></tr>
+      <tr style="--c:var(--claude)"><td><span class="dot"></span>Hive Breach · Claude</td><td class="n">4</td><td class="n">4</td><td class="n">–</td><td class="n">5</td><td class="n">4</td><td class="n">5</td></tr>
       <tr style="--c:var(--claude)"><td><span class="dot"></span>3D 游戏 · Claude</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td></tr>
       <tr style="--c:var(--gemini)"><td><span class="dot"></span>赛车 · Gemini</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td></tr>
       <tr style="--c:var(--copilot)"><td><span class="dot"></span>战斗机 · Copilot</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td></tr>
@@ -163,6 +165,7 @@ footer p{margin:0 0 6px;max-width:80ch}
       <tr style="--c:var(--chatgpt)"><td><span class="dot"></span>平台跳跃 · ChatGPT</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td></tr>
     </tbody>
   </table></div>
+  <p class="sub" style="margin-top:12px">技术项目对每款游戏使用相同的手机与桌面测试。趣味手感由项目负责人试玩后评分。Hive Breach 的分数为暂定。</p>
 </section>
 
 <section aria-labelledby="method">
