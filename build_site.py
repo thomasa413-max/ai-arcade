@@ -98,4 +98,11 @@ root = root.replace("__L__", json.dumps(list(LANGS))).replace("__LINKS__", " · 
 shutil.copytree(HERE.parent / "site" / "games", OUT / "games")
 shutil.copytree(HERE.parent / "site" / "brief", OUT / "brief")
 (OUT / "brief" / "index.html").write_bytes((HERE.parent / "build" / "brief.html").read_bytes())
+# favicon + touch icons on every page
+for f in (HERE / "icons").iterdir(): shutil.copy(f, OUT / f.name)
+ICONS = ('<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="48x48">'
+         '<link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><meta name="theme-color" content="#0b1220">')
+for p in OUT.rglob("*.html"):
+    t = p.read_text(encoding="utf-8")
+    if 'rel="icon"' not in t and "</head>" in t: p.write_text(t.replace("</head>", ICONS + "</head>", 1), encoding="utf-8")
 print("built", sorted(str(p.relative_to(OUT)) for p in OUT.rglob("*") if p.is_file()))
