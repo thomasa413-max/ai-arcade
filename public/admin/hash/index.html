@@ -1,0 +1,14 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Password hash</title>
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'none'">
+<style>body{font:17px system-ui;max-width:640px;margin:24px auto;padding:0 14px;background:#0b0f14;color:#e8eef5}input,button,textarea{font:inherit;width:100%;padding:10px;margin:6px 0;box-sizing:border-box}textarea{height:110px;word-break:break-all}</style></head>
+<body><h1>Password hash</h1>
+<p>Type a long password (12+ characters). The hash is computed inside your browser; nothing is sent anywhere. Copy the result into the Cloudflare secret <b>ADMIN_PASSWORD_HASH</b>. Keep the password in your password manager. Never share it.</p>
+<input id="p" type="password" placeholder="Your password (12+ characters)" autocomplete="new-password"><button id="b">Create hash</button><textarea id="o" readonly></textarea>
+<script>
+const hex=b=>[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("");
+document.getElementById("b").onclick=async()=>{const pw=document.getElementById("p").value,o=document.getElementById("o");
+ if(pw.length<12){o.value="Password too short (12+ characters).";return}
+ const salt=crypto.getRandomValues(new Uint8Array(16)),key=await crypto.subtle.importKey("raw",new TextEncoder().encode(pw),"PBKDF2",false,["deriveBits"]);
+ const bits=await crypto.subtle.deriveBits({name:"PBKDF2",hash:"SHA-256",salt,iterations:100000},key,256);
+ o.value="pbkdf2$100000$"+hex(salt)+"$"+hex(bits);o.select();};
+</script></body></html>
