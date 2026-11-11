@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Game Briefs · AI Arcade</title>
+<title>Build Kit · AI Arcade</title>
 <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Barlow+Semi+Condensed:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-/* Layout idea: a single column work sheet; a starter template on top, then one brief card per game. */
+/* Layout idea: a single column work sheet; a generic template and add-ons on top, then one brief card per game. */
 :root{--bg:#0b0e13;--panel:#131923;--line:#25303f;--ink:#e8eef5;--mute:#93a3b5;--amber:#ffb02e;
  --display:'Bungee','Arial Black',sans-serif;--body:'Barlow Semi Condensed','Arial Narrow',system-ui,sans-serif;color-scheme:dark}
 *{box-sizing:border-box}
@@ -28,13 +28,30 @@ ol{margin:0;padding-left:20px;color:var(--mute)} li{margin:2px 0}
 <main>
 <header>
 <p class="eyebrow">AI ARCADE · BUILD KIT</p>
-<h1>Game briefs</h1>
-<p>Every game starts from its own written brief. Below are the baseline requirements most briefs build on, then the game line used for each platform so far. New briefs are added here as new games are built.</p>
+<h1>Build kit</h1>
+<p>Every build starts from its own written brief. Use the generic template for any project, add the add-on that fits (web game, mobile app or household project), then see the game briefs used so far. New briefs are added here as new builds start.</p>
 </header>
 
 <section class="card" style="--c:#ffb02e">
-<h2>1 · Starter template (baseline requirements)</h2>
-<pre id="shared">Build a complete, original 2D browser game as ONE self-contained HTML file (HTML, CSS and JavaScript in the same file, no build step, no external image or audio files).
+<h2>1 · Generic starter template (any project)</h2>
+<pre id="shared">Act as a senior specialist for this kind of project. Before building, ask me up to 5 short questions ONLY if something essential is missing; otherwise start.
+
+PROJECT: [one sentence: what we are making]
+WHO IT IS FOR: [person or audience, and where they will use it]
+GOAL: [what "done" looks like, in one sentence]
+CONSTRAINTS: [budget, deadline, tools, skills, size, rules to respect]
+MUST HAVE: [3 to 5 requirements]
+NICE TO HAVE: [optional extras]
+OUT OF SCOPE: [what to leave out]
+
+Deliver: (1) the first complete version, (2) a short list of assumptions you made, (3) three improvements you would make with more time, (4) a checklist I can use to verify it is done.</pre>
+<button data-copy="shared">Copy template</button><div class="ok" aria-live="polite"></div>
+</section>
+
+<section class="card" style="--c:#ffb02e">
+<h2>2 · Add-on: web game</h2>
+<pre id="game">ADD-ON: web game
+Build a complete, original 2D browser game as ONE self-contained HTML file (HTML, CSS and JavaScript in the same file, no build step, no external image or audio files).
 
 Requirements:
 1. Runs on any device (phone, tablet, desktop) in BOTH landscape and portrait: full-screen responsive canvas that re-lays out on rotation (never a "please rotate" screen), on-screen touch controls plus keyboard.
@@ -48,36 +65,53 @@ Requirements:
 Deliver the single HTML file first. Then list three improvements you would make with more time.
 
 GAME: [paste this game's line from below, or write a new one]</pre>
-<button data-copy="shared">Copy template</button><div class="ok" aria-live="polite"></div>
+<button data-copy="game">Copy add-on</button><div class="ok" aria-live="polite"></div>
+</section>
+
+<section class="card" style="--c:#b48aff">
+<h2>3 · Add-on: mobile app</h2>
+<pre id="app">ADD-ON: mobile app
+Platform: [iOS, Android or installable web app (PWA)]. Screens: [list the 3 to 6 screens and what each does].
+Requirements: works offline for the core task; data stays on the device unless stated; touch targets of at least 44 px; supports dark mode and large text; no permissions beyond what the feature needs; fast first launch.
+Also deliver: a screen-by-screen flow, a data model, an empty-state and error-state for every screen, and a store-readiness checklist (icon sizes, privacy note, screenshots).</pre>
+<button data-copy="app">Copy add-on</button><div class="ok" aria-live="polite"></div>
+</section>
+
+<section class="card" style="--c:#7fe0a8">
+<h2>4 · Add-on: household project</h2>
+<pre id="home">ADD-ON: household project
+Where: [room, area or item]. Size and measurements: [dimensions]. Budget: [amount] and deadline: [date]. Who does the work: [me, family, a professional].
+Also deliver: a materials and tools list with quantities and rough cost, the steps in the right order with time per step, safety points and any permit or neighbour/landlord approvals to check, what to do first if something goes wrong, and a progress checklist I can tick off.</pre>
+<button data-copy="home">Copy add-on</button><div class="ok" aria-live="polite"></div>
 </section>
 
 <section class="card" style="--c:#8ab4ff">
-<h2>2 · Gemini game brief</h2>
+<h2>5 · Gemini game brief</h2>
 <pre id="g1">A 2D arcade racing game with a vertical scrolling road: dodge traffic, collect boost and fuel pickups, and reach a finish line after about two minutes.</pre>
 <button data-copy="g1">Copy brief</button><div class="ok" aria-live="polite"></div>
 </section>
 
 <section class="card" style="--c:#3fe0ff">
-<h2>3 · Copilot game brief</h2>
+<h2>6 · Copilot game brief</h2>
 <pre id="g2">A 2D vertical air-fighter shooter: waves of enemy aircraft, power-ups, a mid-level mini boss and a final boss.</pre>
 <button data-copy="g2">Copy brief</button><div class="ok" aria-live="polite"></div>
 </section>
 
 <section class="card" style="--c:#ff6a4a">
-<h2>4 · Mistral game brief</h2>
+<h2>7 · Mistral game brief</h2>
 <pre id="g3">A 2D maze chase game: collect every pellet in a labyrinth while avoiding patrolling enemies, with a power-up that lets you turn the tables for a few seconds. Use an original title and original characters.</pre>
 <button data-copy="g3">Copy brief</button><div class="ok" aria-live="polite"></div>
 </section>
 
 <section class="card" style="--c:#3ddc97">
-<h2>5 · ChatGPT game brief</h2>
+<h2>8 · ChatGPT game brief</h2>
 <pre id="g4">A 2D platformer: run and jump through one themed level with moving platforms, collectibles, enemies to avoid or defeat, a checkpoint and a boss at the end. Use an original hero and an original title.</pre>
 <button data-copy="g4">Copy brief</button><div class="ok" aria-live="polite"></div>
 </section>
 
 <section class="card">
 <h2>After each build, note down</h2>
-<ol><li>Time spent and number of prompts or fixes needed</li><li>Cost (free tier, subscription or API)</li><li>What worked first time and what had to be fixed</li><li>Score out of 5 for each criterion on the landing page, noting how closely the game meets its own brief</li></ol>
+<ol><li>Time spent and number of prompts or fixes needed</li><li>Cost (free tier, subscription or API)</li><li>What worked first time and what had to be fixed</li><li>Score out of 5 for each criterion, noting how closely the result meets its own brief</li></ol>
 </section>
 </main>
 <script>
