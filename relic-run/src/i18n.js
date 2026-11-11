@@ -66,3 +66,11 @@ zh:{eyebrow:'3D 跑酷',tag:'奔跑穿越古老遗迹。在五个世界里闪避
  next:'下一段',retry:'再试一次',finale:'世界 1 已完成，更多世界即将到来。',credit:'由 Claude 为 AI Arcade 制作。点击开始以开启声音。',back:'AI Arcade',
  shield:'护盾',magnet:'磁铁',go:'出发！',sound:'声音',pause:'暂停',lang:'语言'}
 };
+Object.assign(T.en,{wcomp:'{0} complete',nextw:'Next world',allDone:'Every world cleared. Thanks for playing!',wlock:'Clear {0} first'});
+Object.assign(T.fr,{wcomp:'{0} terminé',nextw:'Monde suivant',allDone:'Tous les mondes sont terminés. Merci d\'avoir joué !',wlock:'Terminez d\'abord : {0}'});
+Object.assign(T.es,{wcomp:'{0} completado',nextw:'Siguiente mundo',allDone:'Has superado todos los mundos. ¡Gracias por jugar!',wlock:'Supera primero: {0}'});
+Object.assign(T.pt,{wcomp:'{0} concluído',nextw:'Próximo mundo',allDone:'Todos os mundos concluídos. Obrigado por jogar!',wlock:'Conclua primeiro: {0}'});
+Object.assign(T.de,{wcomp:'{0} geschafft',nextw:'Nächste Welt',allDone:'Alle Welten geschafft. Danke fürs Spielen!',wlock:'Zuerst schaffen: {0}'});
+Object.assign(T.it,{wcomp:'{0} completato',nextw:'Mondo successivo',allDone:'Tutti i mondi completati. Grazie per aver giocato!',wlock:'Completa prima: {0}'});
+Object.assign(T.ar,{wcomp:'اكتمل {0}',nextw:'العالم التالي',allDone:'أنهيت جميع العوالم. شكرًا للعب!',wlock:'أنهِ أولًا: {0}'});
+Object.assign(T.zh,{wcomp:'{0} 通关',nextw:'下一个世界',allDone:'所有世界已通关，感谢游玩！',wlock:'先通关：{0}'});
