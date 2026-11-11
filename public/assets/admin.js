@@ -49,7 +49,7 @@
       section("Pages", bars(top.page || [], (k) => k)),
       section("Last 14 days", el("table", {}, el("tr", {}, el("th", {}, "Day"), el("th", {}, "Visitors"), el("th", {}, "Views")), ...rows)),
       section(`Comments (${pending} pending)`, list),
-      section("Automated traffic filtered out (not counted as visitors)", bars(top.bot || [], (k) => ({ hebergeur: "Hosting-provider networks (servers, not people)", agent: "Known bots and scripts", entete: "Requests not made by the page itself" }[k] || k))));
+      section("Automated traffic filtered out", bars(top.bot || [], (k) => k)));
   }
   dash();
 })();
