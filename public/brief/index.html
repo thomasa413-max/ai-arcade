@@ -29,7 +29,7 @@ ol{margin:0;padding-left:20px;color:var(--mute)} li{margin:2px 0}
 <header>
 <p class="eyebrow">AI ARCADE · BUILD KIT</p>
 <h1>Build kit</h1>
-<p>Every build starts from its own written brief. Use the generic template for any project, add the add-on that fits (web game, mobile app or household project), then see the game briefs used so far. New briefs are added here as new builds start.</p>
+<p>Every build starts from its own written brief. Use the generic template for any project, add the add-on that fits (web game, mobile app or household expense app), then see the game briefs used so far. New briefs are added here as new builds start.</p>
 </header>
 
 <section class="card" style="--c:#ffb02e">
@@ -70,19 +70,39 @@ GAME: [paste this game's line from below, or write a new one]</pre>
 
 <section class="card" style="--c:#b48aff">
 <h2>3 · Add-on: mobile app</h2>
-<pre id="app">ADD-ON: mobile app
-Platform: [iOS, Android or installable web app (PWA)]. Screens: [list the 3 to 6 screens and what each does].
-Requirements: works offline for the core task; data stays on the device unless stated; touch targets of at least 44 px; supports dark mode and large text; no permissions beyond what the feature needs; fast first launch.
-Also deliver: a screen-by-screen flow, a data model, an empty-state and error-state for every screen, and a store-readiness checklist (icon sizes, privacy note, screenshots).</pre>
+<pre id="app">ADD-ON: mobile app (cross-platform)
+Start with an installable web app (PWA), then a store app built with Expo / React Native (TypeScript), Android first, then iOS.
+APP: [name and one-line purpose]. CONTENT/DATA: [what the app shows or stores, and where it comes from, e.g. one JSON file per item and language].
+Requirements: works offline for the core task; content downloads on first launch or ships inside the app; images load on demand and are cached; resume where the user stopped; bookmarks or favourites; optional daily notification; the same languages as the website; touch targets of at least 44 px; dark mode and large text; no permissions beyond what a feature needs; fast first launch.
+Store readiness: icon sizes, screenshots, privacy note, no donation or payment links that break Apple or Google rules (use in-app purchase for tips).
+Also deliver: screen-by-screen flow, data model, empty and error states for every screen, build and release steps (cloud builds, TestFlight, Google Play internal testing) and what I must do myself (developer accounts, a real test phone).</pre>
 <button data-copy="app">Copy add-on</button><div class="ok" aria-live="polite"></div>
 </section>
 
 <section class="card" style="--c:#7fe0a8">
-<h2>4 · Add-on: household project</h2>
-<pre id="home">ADD-ON: household project
-Where: [room, area or item]. Size and measurements: [dimensions]. Budget: [amount] and deadline: [date]. Who does the work: [me, family, a professional].
-Also deliver: a materials and tools list with quantities and rough cost, the steps in the right order with time per step, safety points and any permit or neighbour/landlord approvals to check, what to do first if something goes wrong, and a progress checklist I can tick off.</pre>
+<h2>4 · Add-on: AI household expense app</h2>
+<pre id="home">ADD-ON: AI household expense app
+APP: a household account system that captures expenses and simulates monthly savings for specific projects (e.g. holiday, car, renovation). Switzerland first: CHF, QR-bills, 8 languages.
+Core idea: lead with the savings simulator ("can we afford this by this date, and what would we cut?", "what if we cut dining out by CHF 200?"). Expense capture feeds it and is not the product.
+Capture: receipt photo, forwarded e-mail, QR-bill PDF and CSV import, with AI categorisation the user can correct. No bank credentials stored.
+Security and privacy: collect minimal data, encrypt in transit and at rest, per-household access with invitations for a partner, delete-my-data button, audit log, clear privacy promise.
+Business model to test: free tier with one or two projects, paid tier with more projects, shared household and bank sync. Billing and a vendor-side CRM only after real users exist.
+Also deliver: user stories, data model, the savings-simulation logic with worked examples, a risk list (security, pricing, churn), a 4-week proof-of-concept plan and an acceptance checklist.</pre>
 <button data-copy="home">Copy add-on</button><div class="ok" aria-live="polite"></div>
+</section>
+
+<section class="card" style="--c:#ffd166">
+<h2>Reusable building blocks</h2>
+<pre id="reuse">Already built and reusable for any new project (web game, mobile app or household app):
+- 8-language site generator (en, fr, es, pt, de, it, ar right-to-left, zh) with per-language URLs and hreflang
+- Cloudflare Worker + D1 backend: admin area with signed sessions, moderated comments with Turnstile bot check, visit counter and origin tracking
+- Security headers, accessibility and Core Web Vitals checks (axe, Lighthouse)
+- Installable web app basics: favicon set, web manifest, theme colour
+- Scorecard method: same criteria, scored 0 to 5 after each build, with notes
+- Image pipeline: prompts written by Claude, pictures generated through the OpenAI image API, saved next to the project
+- Game kit patterns: synthesized sound, touch and keyboard input, responsive canvas, saved progress
+Rule for every new project: copy the block you need, do not rebuild it.</pre>
+<button data-copy="reuse">Copy list</button><div class="ok" aria-live="polite"></div>
 </section>
 
 <section class="card" style="--c:#8ab4ff">
