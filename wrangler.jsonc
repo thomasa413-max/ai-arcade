@@ -4,6 +4,6 @@
   "compatibility_date": "2026-11-01",
   "assets": { "directory": "./public", "binding": "ASSETS" },
   "ai": { "binding": "AI" },
-  "d1_databases": [{ "binding": "DB", "database_name": "ai-arcade", "database_id": "REPLACE_WITH_YOUR_D1_ID" }],
+  "d1_databases": [{ "binding": "DB", "database_name": "ai-arcade", "database_id": "aed319fe-7a6a-4ccc-8dd1-967847f5fad6" }],
   "triggers": { "crons": ["17 3 * * *"] }
 }
