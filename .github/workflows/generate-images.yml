@@ -1,0 +1,37 @@
+name: Generate Relic Run artwork (OpenAI image API)
+on:
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Regenerate images that already exist"
+        type: boolean
+        default: false
+      only:
+        description: "Optional comma list, e.g. title,w1-sky"
+        type: string
+        default: ""
+permissions:
+  contents: write
+jobs:
+  images:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Generate images
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OUT_DIR: ${{ github.workspace }}/public/games/relic-run/assets
+        run: |
+          args=""
+          if [ "${{ inputs.force }}" = "true" ]; then args="$args --force"; fi
+          if [ -n "${{ inputs.only }}" ]; then args="$args --only=${{ inputs.only }}"; fi
+          node relic-run/tools/generate-images.mjs $args
+      - name: Commit images
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@users.noreply.github.com"
+          git add public/games/relic-run/assets
+          git diff --cached --quiet || (git commit -m "Relic Run: artwork generated with the OpenAI image API" && git push)

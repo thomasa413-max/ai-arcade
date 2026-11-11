@@ -1,0 +1,86 @@
+{
+ "style": "Photorealistic, natural lighting, highly detailed, true-to-life materials, cinematic photography look. No text, no letters, no logos, no watermark, no user interface.",
+ "items": [
+  {
+   "file": "tex-path",
+   "size": "1024x1024",
+   "prompt": "Seamless tileable top-down texture of ancient weathered sandstone flagstones with moss in the cracks, flat even lighting, no shadows, no perspective, fills the whole frame."
+  },
+  {
+   "file": "tex-ground",
+   "size": "1024x1024",
+   "prompt": "Seamless tileable top-down texture of lush jungle floor: short grass, small ferns, leaf litter and patches of damp soil, flat even lighting, no perspective."
+  },
+  {
+   "file": "tex-bark",
+   "size": "1024x1024",
+   "prompt": "Seamless tileable texture of rough tropical tree bark with deep vertical ridges, flat even lighting, fills the whole frame."
+  },
+  {
+   "file": "tex-rock",
+   "size": "1024x1024",
+   "prompt": "Seamless tileable texture of weathered grey ancient temple stone with fine cracks and green moss patches, flat even lighting."
+  },
+  {
+   "file": "tex-leaf",
+   "size": "1024x1024",
+   "prompt": "A dense cluster of lush green tropical leaves on small branches, photographed flat from the front, isolated on a fully transparent background, leaves fill the frame.",
+   "background": "transparent"
+  },
+  {
+   "file": "title",
+   "size": "1536x1024",
+   "prompt": "Key art for an adventure runner game: a lone explorer in a brown fedora and teal jacket sprinting down an ancient mossy stone path toward a huge vine-covered jungle temple, golden sunbeams through the canopy, a giant carved stone boulder rolling behind, dramatic depth, cinematic wide composition."
+  },
+  {
+   "file": "w1-sky",
+   "size": "1536x1024",
+   "prompt": "Wide distant backdrop of a misty tropical jungle horizon: layered green mountains, an ancient stepped temple far away, bright morning sky with soft clouds, nothing in the foreground, empty ground level at the bottom, calm and open composition."
+  },
+  {
+   "file": "w2-sky",
+   "size": "1536x1024",
+   "prompt": "Wide distant backdrop of a sun-baked desert horizon: golden dunes, a faint pyramid and obelisks far away, hazy orange-blue sky with a huge sun, nothing in the foreground, empty ground level at the bottom."
+  },
+  {
+   "file": "w3-sky",
+   "size": "1536x1024",
+   "prompt": "Wide distant backdrop inside a frozen cave: blue ice walls, glowing crystals, soft aurora light far away, nothing in the foreground, empty ground level at the bottom."
+  },
+  {
+   "file": "w4-sky",
+   "size": "1536x1024",
+   "prompt": "Wide distant backdrop of a volcanic temple world: glowing lava rivers, black basalt towers and a distant erupting volcano under a red-orange sky, nothing in the foreground, empty ground level at the bottom."
+  },
+  {
+   "file": "w5-sky",
+   "size": "1536x1024",
+   "prompt": "Wide distant backdrop of a neon cyberpunk metropolis at dusk: tall glowing skyscrapers in magenta and cyan, hazy purple sky, nothing in the foreground, empty ground level at the bottom."
+  },
+  {
+   "file": "w1-card",
+   "size": "1024x1024",
+   "prompt": "Square emblem scene for a game level called Jungle Ruins: a vine-covered stone temple gate with a golden glyph in a lush jungle, warm sunlight, centered composition."
+  },
+  {
+   "file": "w2-card",
+   "size": "1024x1024",
+   "prompt": "Square emblem scene for a game level called Sun-Baked Desert: a sand-worn stone gate with golden glyph between towering dunes, strong sun, centered composition."
+  },
+  {
+   "file": "w3-card",
+   "size": "1024x1024",
+   "prompt": "Square emblem scene for a game level called Frozen Caves: an ice-covered stone gate with glowing blue glyph inside a crystal cave, centered composition."
+  },
+  {
+   "file": "w4-card",
+   "size": "1024x1024",
+   "prompt": "Square emblem scene for a game level called Lava Temple: a black stone gate with glowing orange glyph above a river of lava, centered composition."
+  },
+  {
+   "file": "w5-card",
+   "size": "1024x1024",
+   "prompt": "Square emblem scene for a game level called Neon Metropolis: a futuristic stone-and-neon gate with glowing cyan glyph between skyscrapers, centered composition."
+  }
+ ]
+}
