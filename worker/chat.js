@@ -41,9 +41,10 @@ async function verifyTurnstile(token, ip, secret) {
  * @param {number}   [opts.maxTokens=400] [opts.maxChars=500] [opts.maxHistory=8]
  * @param {number}   [opts.perVisitorPerHour=20] [opts.perDay=400]   limits (messages)
  * @param {string}   [opts.cookie="sk_chat"] [opts.sessionMinutes=60]
+ * @param {number}   [opts.priceIn=0.10] [opts.priceOut=0.50]   USD per million tokens, only for the cost estimate in stats() (Claude Haiku 5.5 list price; the Anthropic Console is the authoritative bill)
  */
 export function createChat(opts) {
-  const o = { model: "claude-haiku-5-5", maxTokens: 400, maxChars: 500, maxHistory: 8, perVisitorPerHour: 20, perDay: 400, cookie: "sk_chat", sessionMinutes: 60, ...opts };
+  const o = { model: "claude-haiku-5-5", maxTokens: 400, maxChars: 500, maxHistory: 8, perVisitorPerHour: 20, perDay: 400, cookie: "sk_chat", sessionMinutes: 60, priceIn: 0.10, priceOut: 0.50, ...opts };
   let ready = false;
   async function ensure(db) { if (!ready) { await db.batch(SCHEMA.map((s) => db.prepare(s))); ready = true; } }
   const bump = async (db, bucket, key, by = 1) => (await db.prepare("INSERT INTO chat_usage (bucket,key,n) VALUES (?,?,?) ON CONFLICT(bucket,key) DO UPDATE SET n = n + excluded.n RETURNING n").bind(bucket, key, by).first()).n;
@@ -96,13 +97,14 @@ export function createChat(opts) {
     return json({ reply }, 200, setCookie ? { "Set-Cookie": setCookie } : {});
   }
 
-  /** Last `days` days of counters for an admin page: messages, input and output tokens. */
+  /** Last `days` days of counters for an admin page: messages, input and output tokens, estimated cost in USD. */
   async function stats(env, days = 14) {
     await ensure(env.DB);
     const since = new Date(Date.now() - days * 86400000).toISOString().slice(0, 10);
     const rows = (await env.DB.prepare("SELECT bucket, key, n FROM chat_usage WHERE length(bucket)=10 AND bucket >= ? AND key IN ('all','tok_in','tok_out') ORDER BY bucket DESC").bind(since).all()).results;
     const by = {}; for (const r of rows) (by[r.bucket] ||= { day: r.bucket, messages: 0, tokens_in: 0, tokens_out: 0 })[{ all: "messages", tok_in: "tokens_in", tok_out: "tokens_out" }[r.key]] = r.n;
-    return Object.values(by);
+    const out = Object.values(by).map((d) => ({ ...d, cost_usd: (d.tokens_in * o.priceIn + d.tokens_out * o.priceOut) / 1e6 }));
+    return out;
   }
   async function purge(env, keepDays = 35) { await ensure(env.DB); await env.DB.prepare("DELETE FROM chat_usage WHERE substr(bucket,1,10) < ?").bind(new Date(Date.now() - keepDays * 86400000).toISOString().slice(0, 10)).run(); }
   /** GET /api/chat: lets the widget stay hidden until the API key is configured. */

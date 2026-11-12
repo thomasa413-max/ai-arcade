@@ -32,7 +32,7 @@ export default {
       if (path === "/api/chat" && request.method === "GET") return chat.status(env);
       if (path === "/api/chat" && request.method === "POST") return await chat.post(request, env, url);
       if (path === "/api/translate" && request.method === "GET") return await comments.translate(request, env, url);
-      if (path.startsWith("/api/admin/")) return await admin.route(request, env, url, { comments, visits });
+      if (path.startsWith("/api/admin/")) return await admin.route(request, env, url, { comments, visits, chat });
       return json({ error: "not_found" }, 404);
     } catch (e) { console.log("error", path, String(e)); return json({ error: "server" }, 500); }
   },

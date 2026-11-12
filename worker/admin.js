@@ -108,7 +108,7 @@ export function createAdmin(opts = {}) {
    * Routeur /api/admin/* : login, logout, session, comments (GET liste, POST masquer/afficher, DELETE), stats, export (sauvegarde, si `backup` est fourni).
    * `comments` et `visits` sont les objets créés par createComments / createVisits.
    */
-  async function route(request, env, url, { comments, visits, backup }) {
+  async function route(request, env, url, { comments, visits, backup, chat }) {
     const p = url.pathname;
     if (p === "/api/admin/login" && request.method === "POST") return login(request, env, url);
     if (p === "/api/admin/logout" && request.method === "POST") return logout(request, env);
@@ -134,6 +134,7 @@ export function createAdmin(opts = {}) {
       const n = Math.min(Math.max(Number(url.searchParams.get("limit")) || 200, 1), 1000);
       return json({ entries: (await env.DB.prepare("SELECT at, action, target, detail FROM admin_log ORDER BY id DESC LIMIT ?").bind(n).all()).results });
     }
+    if (p === "/api/admin/chat" && request.method === "GET" && chat) return json({ days: await chat.stats(env, Math.min(90, Math.max(1, +url.searchParams.get("days") || 14))) });
     if (p === "/api/admin/stats" && request.method === "GET") return visits.handleStats(request, env, url, async () => true);
     if (p === "/api/admin/export" && request.method === "GET" && backup) return backup.exportResponse(env);
     return json({ error: "not_found" }, 404);
