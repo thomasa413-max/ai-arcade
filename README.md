@@ -15,7 +15,7 @@ Folder map: `public/` = the site (built), `src/index.js` + `worker/` = comments 
 7. **Domain**: Worker → Settings → Domains & Routes → add your custom domain when you buy one. Until then the free `*.workers.dev` address works. Links are relative, so no code changes.
 
 ## Chat assistant (Claude)
-`/api/chat` answers visitors' questions from `worker/chat-knowledge.js` (edit it when the site changes). Needs one more secret, typed in the Cloudflare page: `ANTHROPIC_API_KEY` (create it in the Anthropic Console with an expiry date and a monthly spend limit). Optional variable `CHAT_MODEL` to change the model (default `claude-haiku-5-5`). Limits: 20 messages per visitor per hour, 300 per day, set in `src/index.js`. Conversations are never stored. Reusable module: `site-kit/worker/src/chat.js` in the Imago Biblia repo.
+`/api/chat` answers visitors' questions from the site pages themselves (regenerated into `worker/chat-knowledge.generated.js` on every `build_site.py` run) plus the stable notes in `worker/chat-knowledge.js`. Needs one more secret, typed in the Cloudflare page: `ANTHROPIC_API_KEY` (create it in the Anthropic Console with an expiry date and a monthly spend limit). Optional variable `CHAT_MODEL` to change the model (default `claude-haiku-5-5`). Limits: 20 messages per visitor per hour, 300 per day, set in `src/index.js`. Conversations are never stored. Reusable module: `site-kit/worker/src/chat.js` in the Imago Biblia repo.
 
 ## Moderating comments
 Open `/admin/`, sign in (user `admin` + your password), then Publish or Delete. New comments stay hidden until you publish them. Visits by country are shown too.
