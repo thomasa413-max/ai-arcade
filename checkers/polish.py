@@ -1,0 +1,39 @@
+import re,json
+s=open('ember.html',encoding='utf-8').read()
+def rep(old,new,count=1):
+    global s
+    assert s.count(old)==count,(s.count(old),old[:70]); s=s.replace(old,new)
+
+NEW={
+'pt':dict(subtitle='Um duelo intemporal em 3D.',difficulty='Dificuldade',easy='Fácil',medium='Médio',hard='Difícil',playComputer='Jogar contra o computador',playFriend='Jogar com um amigo',yourTurn='A sua vez',computerThinking='O computador está a pensar…',lightTurn='Vez das claras',darkTurn='Vez das escuras',youWin='Você ganhou!',youLose='O computador ganha',lightWins='As claras ganham!',darkWins='As escuras ganham!',draw='Empate',playAgain='Jogar de novo',menu='Menu',undo='↶ Desfazer',newGame='Novo jogo',hint='✦ Dica',mute='Som desligado',unmute='Som ligado',resetView='Repor vista',mandatory='Captura obrigatória!',chain='Continue a saltar!',help='Toque numa peça e depois numa casa brilhante · Arraste para rodar · Pince para ampliar',solo='SOLO',local='2 JOGADORES',noUndo='Nada para desfazer',welcome='As claras começam',noHint='Sem jogadas',winDetail='Muito bem jogado!',loseDetail='Mais uma partida?',drawDetail='Um duelo equilibrado.',boardTheme='Tema do tabuleiro',classic='Nogueira clássica',midnight='Azul meia-noite',rosewood='Pau-rosa',achievement='Conquista desbloqueada',firstWin='Primeira vitória',kingMaker='Coroação',tripleJump='Salto triplo',perfect='Vitória perfeita',session='Sessão',wins='Vitórias',losses='Derrotas',draws='Empates',streak='Sequência'),
+'it':dict(subtitle='Un duello senza tempo in 3D.',difficulty='Difficoltà',easy='Facile',medium='Media',hard='Difficile',playComputer='Gioca contro il computer',playFriend='Gioca con un amico',yourTurn='Tocca a te',computerThinking='Il computer sta pensando…',lightTurn='Muovono i chiari',darkTurn='Muovono gli scuri',youWin='Hai vinto!',youLose='Vince il computer',lightWins='Vincono i chiari!',darkWins='Vincono gli scuri!',draw='Pareggio',playAgain='Gioca ancora',menu='Menu',undo='↶ Annulla',newGame='Nuova partita',hint='✦ Suggerimento',mute='Audio spento',unmute='Audio acceso',resetView='Reimposta vista',mandatory='Presa obbligatoria!',chain='Continua a saltare!',help='Tocca una pedina, poi una casella luminosa · Trascina per ruotare · Pizzica per zoomare',solo='SOLO',local='2 GIOCATORI',noUndo='Niente da annullare',welcome='Iniziano i chiari',noHint='Nessuna mossa',winDetail='Ben giocata!',loseDetail='Un’altra partita?',drawDetail='Un duello equilibrato.',boardTheme='Tema della scacchiera',classic='Noce classico',midnight='Blu notte',rosewood='Palissandro',achievement='Obiettivo sbloccato',firstWin='Prima vittoria',kingMaker='Incoronazione',tripleJump='Salto triplo',perfect='Vittoria perfetta',session='Sessione',wins='Vittorie',losses='Sconfitte',draws='Pareggi',streak='Serie'),
+'ar':dict(subtitle='مبارزة خالدة بتقنية ثلاثية الأبعاد.',difficulty='الصعوبة',easy='سهل',medium='متوسط',hard='صعب',playComputer='العب ضد الكمبيوتر',playFriend='العب مع صديق',yourTurn='دورك',computerThinking='الكمبيوتر يفكر…',lightTurn='دور الفاتح',darkTurn='دور الداكن',youWin='لقد فزت!',youLose='فاز الكمبيوتر',lightWins='فاز الفاتح!',darkWins='فاز الداكن!',draw='تعادل',playAgain='العب مرة أخرى',menu='القائمة',undo='↶ تراجع',newGame='لعبة جديدة',hint='✦ تلميح',mute='إيقاف الصوت',unmute='تشغيل الصوت',resetView='إعادة العرض',mandatory='الأكل إلزامي!',chain='واصل القفز!',help='المس قطعة ثم مربعًا مضيئًا · اسحب للتدوير · قرّب بإصبعين للتكبير',solo='فردي',local='لاعبان',noUndo='لا شيء للتراجع عنه',welcome='الفاتح يبدأ',noHint='لا توجد حركات',winDetail='لعب رائع!',loseDetail='جولة أخرى؟',drawDetail='مبارزة متكافئة.',boardTheme='نمط اللوحة',classic='جوز كلاسيكي',midnight='أزرق منتصف الليل',rosewood='خشب الورد',achievement='إنجاز جديد',firstWin='الفوز الأول',kingMaker='التتويج',tripleJump='قفزة ثلاثية',perfect='فوز مثالي',session='الجلسة',wins='الانتصارات',losses='الخسائر',draws='التعادلات',streak='السلسلة'),
+'zh':dict(subtitle='跨越时代的 3D 对决。',difficulty='难度',easy='简单',medium='中等',hard='困难',playComputer='对战电脑',playFriend='与朋友对战',yourTurn='轮到你了',computerThinking='电脑正在思考…',lightTurn='白方走棋',darkTurn='黑方走棋',youWin='你赢了！',youLose='电脑获胜',lightWins='白方获胜！',darkWins='黑方获胜！',draw='平局',playAgain='再来一局',menu='菜单',undo='↶ 悔棋',newGame='新游戏',hint='✦ 提示',mute='关闭声音',unmute='开启声音',resetView='重置视角',mandatory='必须吃子！',chain='继续连跳！',help='点击棋子，再点击发光的格子 · 拖动旋转 · 双指缩放',solo='单人',local='双人',noUndo='没有可悔的棋',welcome='白方先走',noHint='没有可走的棋',winDetail='下得漂亮！',loseDetail='再来一局？',drawDetail='势均力敌的对决。',boardTheme='棋盘主题',classic='经典胡桃木',midnight='午夜蓝',rosewood='玫瑰木',achievement='解锁成就',firstWin='首次胜利',kingMaker='升王',tripleJump='三连跳',perfect='完美胜利',session='本次',wins='胜',losses='负',draws='平',streak='连胜'),
+}
+for k in NEW:
+    NEW[k]['title']='EMBER & CROWN'
+js="Object.assign(STRINGS,"+json.dumps(NEW,ensure_ascii=False)+");"
+rep("for(const code of ['fr','es','de'])STRINGS[code]=", js+"for(const code of ['fr','es','de','pt','it','ar','zh'])STRINGS[code]=")
+
+# theme option labels translated in the first menu
+rep('<option value="classic">Classic walnut</option><option value="midnight">Midnight blue</option><option value="rosewood">Rosewood</option></select></div><button id="menuSound"','<option value="classic" data-t="classic">Classic walnut</option><option value="midnight" data-t="midnight">Midnight blue</option><option value="rosewood" data-t="rosewood">Rosewood</option></select></div><button id="menuSound"')
+# bundled Three.js instead of CDN
+rep("let THREE;try{THREE=await import('https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js')}catch(e){$('error').classList.add('show');throw e}","const THREE=window.__THREE;if(!THREE){$('error').classList.add('show');throw new Error('three missing')}")
+three=open('b/three.min.js',encoding='utf-8').read()
+rep('<script id="engine">','<script>'+three+'</script>\n<script id="engine">')
+rep("<p>Check your internet connection and reload. The game needs Three.js from its CDN.</p>","<p>Your browser could not start 3D graphics (WebGL). Please try another browser or update your device.</p>")
+# hint uses the engine
+rep("let m=legal[0];hintSquares=[m.from,m.to];","let path=null;try{path=E.choose(state,3,350)}catch(e){}let m=(path&&path[0])||legal[0];hintSquares=[m.from,m.to];")
+# test hook triggers the computer like a real move
+rep("return m?perform(m,true):false","return m?perform(m,false):false")
+# landscape: bigger board
+rep("function resetView(){targetAz=0;targetPolar=.9;targetDist=16;resize()}","function resetView(){let land=innerWidth>innerHeight*1.2;targetAz=0;targetPolar=land?.78:.9;targetDist=land?14.6:16;resize()}")
+rep("let fit=w<h?Math.max(15,17*(h/w)*.72):15;targetDist=Math.max(targetDist,fit);","let land=w>h*1.2;let fit=w<h?Math.max(15,17*(h/w)*.72):land?13:15;targetDist=Math.max(targetDist,fit);")
+rep("function resize(){let w=innerWidth,h=innerHeight;","function resize(){let w=innerWidth,h=innerHeight;let land0=w>h*1.2;if(window.__land!==undefined&&window.__land!==land0){targetPolar=land0?.78:.9;targetDist=land0?14.6:16}window.__land=land0;")
+# back link to the arcade
+rep('<div class="mini" data-t="help">','<div class="mini"><a style="color:#e8c28a" id="home" href="../../">← Pixel Mind Arcade</a></div><div class="mini" data-t="help">')
+rep("<div class=\"mini\">${S.help}</div>`","<div class=\"mini\"><a style=\"color:#e8c28a\" href=\"../../${STRINGS[lang]?lang:'en'}/\">← Pixel Mind Arcade</a></div><div class=\"mini\">${S.help}</div>`")
+rep("</head><body>","</head><body><script>document.addEventListener('DOMContentLoaded',()=>{var l=new URLSearchParams(location.search).get('lang')||'en';var a=document.getElementById('home');if(a)a.href='../../'+l+'/'})</script>")
+rep("<title>Ember & Crown — 3D Checkers</title>","<title>Ember &amp; Crown — 3D Checkers</title><meta name=\"description\" content=\"3D checkers against the computer or a friend, built by ChatGPT for the Pixel Mind Arcade.\">")
+open('b/index.html','w',encoding='utf-8').write(s)
+print(len(s)//1024,'KB')

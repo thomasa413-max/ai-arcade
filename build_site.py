@@ -47,7 +47,7 @@ def esc(s): return s.replace("\\", "\\\\").replace('"', '\\"')
 
 def build(lang):
     h = SRC.read_text(encoding="utf-8")
-    h = h.replace("{{HB}}", "../games/hive-breach/?lang=" + lang).replace("{{RR}}", "../games/relic-run/?lang=" + lang).replace("{{BRIEF}}", "../brief/")
+    h = h.replace("{{HB}}", "../games/hive-breach/?lang=" + lang).replace("{{RR}}", "../games/relic-run/?lang=" + lang).replace("{{CK}}", "../games/checkers/?lang=" + lang).replace("{{BRIEF}}", "../brief/")
     h = h.replace("Every game is original, runs in the browser on phone and desktop, and is a single page with its own sound. Games unlock here as they are finished.",
                   "Every game is original, runs in the browser on any device, in landscape and portrait, and is a single page with its own sound. Games unlock here as they are finished.")
     h = h.replace("The same requirements for every platform: one HTML file, touch and keyboard, sound, one complete level.",

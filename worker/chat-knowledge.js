@@ -10,6 +10,7 @@ AI Arcade is a portfolio site by Michaël Miguel (named in the page footer) show
 
 GAME DETAILS NOT ON THE PAGES
 - Relic Run (3D, Claude): five worlds (Jungle Ruins, Sun-Baked Desert, Frozen Caves, Lava Temple, Neon Metropolis), three stages each; the last stage of each world is a chase by a giant guardian boulder. Dodge, jump and slide; collect coins, shields and magnets. Progress is saved in the browser. Artwork (textures, backdrops, trees, the explorer) was generated with the OpenAI image API, directed by Claude.
+- Ember & Crown (3D checkers, ChatGPT): American checkers on an 8x8 board with mandatory captures, multi-jumps and kings. Play against the computer at three levels (Easy, Medium, Hard; the computer thinks with a search algorithm) or with a friend on the same device. Tap a piece then a glowing square, drag to rotate the board, pinch to zoom. Has undo, hint, three board themes and a session score. Built by ChatGPT from the same brief; the site then added the eight languages and bundled the 3D library. Scored as ChatGPT delivered it. More board games are planned.
 - Hive Breach (2D, Claude): run-and-gun in a space station with synthesized music that reacts to the action.
 - All games run in the browser on phone, tablet and desktop, landscape and portrait, touch and keyboard, with their own sound.
 

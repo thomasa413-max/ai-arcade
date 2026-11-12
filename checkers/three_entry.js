@@ -1,0 +1,2 @@
+import {ACESFilmicToneMapping,BoxGeometry,Color,CylinderGeometry,DirectionalLight,Fog,Group,HemisphereLight,MathUtils,Mesh,MeshBasicMaterial,MeshStandardMaterial,PerspectiveCamera,Raycaster,SRGBColorSpace,Scene,SphereGeometry,TorusGeometry,Vector2,WebGLRenderer} from 'three';
+window.__THREE={ACESFilmicToneMapping,BoxGeometry,Color,CylinderGeometry,DirectionalLight,Fog,Group,HemisphereLight,MathUtils,Mesh,MeshBasicMaterial,MeshStandardMaterial,PerspectiveCamera,Raycaster,SRGBColorSpace,Scene,SphereGeometry,TorusGeometry,Vector2,WebGLRenderer};
