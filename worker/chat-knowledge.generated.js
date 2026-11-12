@@ -41,7 +41,7 @@ The same six criteria, scored from 0 to 5 after each build. Scores appear as eac
 Game Works everywhere Playable in 30 s Fun and feel Completeness Polish Meets its brief
 Hive Breach · Claude 4 4 5 5 4 5
 3D game · Claude 4 5 5 3 4 3
-Ember & Crown · ChatGPT 4 5 – 4 4 4
+Ember & Crown · ChatGPT 4 5 5 4 4 4
 Racing · Gemini – – – – – –
 Air fighter · Copilot – – – – – –
 Maze chase · Mistral – – – – – –
