@@ -4,7 +4,7 @@ Usage: python3 build_site.py [--base https://your-domain] [--sitekey TURNSTILE_S
 - English is the template (../build/landing.html); other languages are exact-string translations below.
 - To add a language: add an entry to LANGS and a dict to TR (English segment -> translation), then rebuild.
 """
-import argparse, pathlib, shutil, re
+import argparse, pathlib, shutil, re, json
 
 ap = argparse.ArgumentParser()
 ap.add_argument("--base", default="")
@@ -16,7 +16,7 @@ SRC = HERE.parent / "build" / "landing.html"
 OUT = HERE / "public"
 KIT = HERE.parent / "imagobiblia" / "site-kit" / "static"
 DEFAULT = "en"
-import i18n
+import i18n, chat_i18n
 LANGS = i18n.LANGS
 TR = {l: dict(zip(i18n.KEYS, v)) for l, v in i18n.TR.items()}
 UI = {l: dict(zip(i18n.UIK, v)) for l, v in i18n.UI.items()}
@@ -67,7 +67,9 @@ def build(lang):
                 f'<div id="comments" data-sitekey="{a.sitekey}" data-lang="{lang}"></div></section>\n')
     h = h.replace("</main>", comments + "</main>")
     h = h.replace('<footer><div class="wrap">', '<footer><div class="wrap">\n  <p>%s: <b id="visitor-count">–</b></p>' % u["visitors"])
-    h = h.replace("</body>", f'<script>{texts}</script><script src="../assets/comments.js" defer></script><script src="../assets/visits.js" defer></script></body>')
+    ct = chat_i18n.CHAT[lang]; chat = {"sitekey": a.sitekey, "lang": lang, "endpoint": "/api/chat", "t": ct}
+    texts += "window.SK_CHAT=" + json.dumps(chat, ensure_ascii=False) + ";"
+    h = h.replace("</body>", f'<script>{texts}</script><script src="../assets/chat.js" defer></script><script src="../assets/comments.js" defer></script><script src="../assets/visits.js" defer></script></body>')
     return h
 
 if OUT.exists(): shutil.rmtree(OUT)
@@ -82,6 +84,7 @@ cj = cj.replace('msg = el("textarea", { name: "message", required: true, maxLeng
                 'msg = el("textarea", { name: "message", required: true, maxLength: 1000, rows: 4, placeholder: T.message, "aria-label": T.message })')
 (OUT / "assets" / "comments.js").write_text(cj, encoding="utf-8")
 (OUT / "assets" / "visits.js").write_text((KIT / "visits.js").read_text(encoding="utf-8"), encoding="utf-8")
+(OUT / "assets" / "chat.js").write_text((KIT / "sitekit-chat.js").read_text(encoding="utf-8"), encoding="utf-8")
 (OUT / "assets" / "admin.js").write_text((HERE / "admin-dashboard.js").read_text(encoding="utf-8"), encoding="utf-8")
 (OUT / "admin").mkdir()
 (OUT / "admin" / "index.html").write_text('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Admin</title>'
