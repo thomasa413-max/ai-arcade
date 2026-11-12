@@ -17,6 +17,8 @@ Folder map: `public/` = the site (built), `src/index.js` + `worker/` = comments 
 ## Chat assistant (Claude)
 `/api/chat` answers visitors' questions from the site pages themselves (regenerated into `worker/chat-knowledge.generated.js` on every `build_site.py` run) plus the stable notes in `worker/chat-knowledge.js`. Needs one more secret, typed in the Cloudflare page: `ANTHROPIC_API_KEY` (create it in the Anthropic Console with an expiry date and a monthly spend limit). Optional variable `CHAT_MODEL` to change the model (default `claude-haiku-5-5`). Limits: 20 messages per visitor per hour, 300 per day, set in `src/index.js`. Conversations are never stored. Reusable module: `site-kit/worker/src/chat.js` in the Imago Biblia repo.
 
+Bot protection: the chat uses Cloudflare Turnstile in interaction-only mode. It verifies visitors invisibly and shows a checkbox only when Cloudflare is unsure. The result is kept in a signed HttpOnly cookie for 60 minutes. If you want a visible checkbox every time, change `appearance` to `"always"` in `sitekit-chat.js`.
+
 ## Moderating comments
 Open `/admin/`, sign in (user `admin` + your password), then Publish or Delete. New comments stay hidden until you publish them. Visits by country are shown too.
 
