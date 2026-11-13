@@ -68,6 +68,29 @@ GAME: [paste this game's line from below, or write a new one]</pre>
 <button data-copy="game">Copy add-on</button><div class="ok" aria-live="polite"></div>
 </section>
 
+<section class="card" style="--c:#ff9f43">
+<h2>2b · Add-on: photo-real art (code from the platform, pictures from an image AI)</h2>
+<pre id="photo">ADD-ON: photo-real art
+Standard from now on: every game has two parts. The game platform writes the code; an image AI makes the pictures. Credit both on the site and on LinkedIn ("game code by Mistral, art by ChatGPT").
+
+For the game platform (code):
+1. Keep all gameplay in code, but draw characters and backgrounds from image files, not from shapes. Load them lazily with a loading screen and a progress percentage. Keep the total under about 4 MB (WebP).
+2. Use one image per pose (idle, walk cycle, jump, crouch, block, each attack as a wind-up and a strike, hit, knock-down, get-up, victory). Map each animation state to a pose in a small function; use the game's frame counter for timing.
+3. Draw every sprite from a feet anchor so characters do not jump between poses. Characters face right in the files; mirror them for the other side.
+4. Backgrounds in layers (sky, far, near, floor) with parallax; mirror-tile layers that are narrower than the view.
+
+For the image AI (pictures, OpenAI image API through GitHub Actions):
+1. Step 1, reference sheet: one three-view character sheet per character (front, side, back), photographic style, one fixed description of face, hair and clothes.
+2. Step 2, poses: one image per pose, generated from the reference sheet so the person stays the same. Side view facing right, same standing height, feet at the same height, flat pure green (#00FF00) background. Never ask for a transparent background: the model paints a fake checkerboard.
+3. Cut-out: key out the green with despill (tools/key.py), trim to the visible area, store the feet anchor per pose.
+4. Style block shared by every prompt: photorealistic cinematic photograph, no text, no logos, no glow or motion blur. Describe each pose with the exact limb positions, and re-roll the few weak poses with a sharper description.
+5. Secrets: the OpenAI key lives only in the GitHub secret OPENAI_API_KEY, restricted to images, with an expiry date and a monthly spend limit with email alerts. Never paste a key in a chat or in code.
+6. Cost guide: about 50 poses per character at medium quality is roughly 3 to 5 dollars.
+
+Credit line for the card: "Game code by [platform], art by [image AI]."</pre>
+<button data-copy="photo">Copy add-on</button><div class="ok" aria-live="polite"></div>
+</section>
+
 <section class="card" style="--c:#b48aff">
 <h2>3 · Add-on: mobile app</h2>
 <pre id="app">ADD-ON: mobile app (cross-platform)
@@ -118,6 +141,7 @@ Also deliver: user stories, data model, the savings-simulation logic with worked
 - Scorecard method: same criteria, scored 0 to 5 after each build, with notes
 - AI chat assistant (site-kit): Cloudflare Worker module calling Claude through the Anthropic API, answers only from a knowledge text, Turnstile check, per-visitor and daily limits, no conversations stored, 8-language widget
 - Image pipeline: prompts written by Claude, pictures generated through the OpenAI image API, saved next to the project
+- Photo-real fighter pipeline (Neon Dojo): reference sheets, pose images, green-screen cut-out tool, sprite anchors and a ready sprite player for 2D games (see add-on 2b)
 - Game kit patterns: synthesized sound, touch and keyboard input, responsive canvas, saved progress
 Rule for every new project: copy the block you need, do not rebuild it.</pre>
 <button data-copy="reuse">Copy list</button><div class="ok" aria-live="polite"></div>
