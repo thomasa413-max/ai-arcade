@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AI Arcade</title>
-<meta name="description" content="Juegos arcade originales en el navegador, creados con distintas plataformas de IA, con una tabla de valoración que compara los resultados. Incluye un asistente de chat con IA.">
+<meta name="description" content="Juegos arcade originales en el navegador, creados con distintas plataformas de IA. Incluye un asistente de chat con IA.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Barlow+Semi+Condensed:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-/* Layout idea: an arcade marquee on top, then six cabinet cards, each lit in its platform's colour; a scorecard below. */
+/* Layout idea: an arcade marquee on top, then six cabinet cards, each lit in its platform's colour. */
 :root{
   --bg:#080b11; --panel:#101620; --line:#232e3d; --ink:#e8eef5; --mute:#93a3b5; --amber:#ffb02e;
   --claude:#ffb02e; --chatgpt:#3ddc97; --gemini:#8ab4ff; --copilot:#3fe0ff; --mistral:#ff6a4a;
@@ -88,7 +88,7 @@ footer p{margin:0 0 6px;max-width:80ch}
 <header class="marquee"><div class="wrap"><nav class="langs" aria-label="Idioma"><a href="../en/" hreflang="en" lang="en">English</a><a href="../fr/" hreflang="fr" lang="fr">Français</a><a href="../es/" hreflang="es" lang="es" aria-current="true">Español</a><a href="../pt/" hreflang="pt" lang="pt">Português</a><a href="../de/" hreflang="de" lang="de">Deutsch</a><a href="../it/" hreflang="it" lang="it">Italiano</a><a href="../ar/" hreflang="ar" lang="ar">العربية</a><a href="../zh/" hreflang="zh" lang="zh">中文</a></nav>
   <p class="eyebrow">JUEGOS CREADOS CON PLATAFORMAS DE IA</p>
   <h1>Juegos arcade,<br><span>creados por IA.</span></h1>
-  <p class="lede">Cada juego se crea con una plataforma de IA distinta. Juégalos y compáralos en la misma tabla de valoración. ¿Preguntas? Pregunta al asistente de IA en la parte inferior derecha de la página.</p>
+  <p class="lede">Cada juego se crea con una plataforma de IA distinta. Juégalos y descubre lo que sabe hacer cada una. ¿Preguntas? Pregunta al asistente de IA en la parte inferior derecha de la página.</p>
   <div class="chips">
     <span class="chip" style="--c:var(--claude)">Claude</span><span class="chip" style="--c:var(--chatgpt)">ChatGPT</span><span class="chip" style="--c:var(--gemini)">Gemini</span><span class="chip" style="--c:var(--copilot)">Copilot</span><span class="chip" style="--c:var(--mistral)">Mistral</span>
   </div>
@@ -158,36 +158,6 @@ footer p{margin:0 0 6px;max-width:80ch}
 
   </div>
 </section>
-
-<section aria-labelledby="score">
-  <h2 id="score">Cómo se evalúan</h2>
-  <p class="sub">Los mismos seis criterios, puntuados de 0 a 5 tras cada creación. Las notas aparecen cuando cada juego está terminado.</p>
-  <div class="scroller"><table>
-    <thead><tr><th>Juego</th><th>Funciona en todo</th><th>Jugable en 30 s</th><th>Diversión</th><th>Completitud</th><th>Acabado</th><th>Cumple su briefing</th></tr></thead>
-    <tbody>
-      <tr style="--c:var(--claude)"><td><span class="dot"></span>Hive Breach · Claude</td><td class="n">4</td><td class="n">4</td><td class="n">5</td><td class="n">5</td><td class="n">4</td><td class="n">5</td></tr>
-      <tr style="--c:var(--claude)"><td><span class="dot"></span>Juego 3D · Claude</td><td class="n">4</td><td class="n">5</td><td class="n">5</td><td class="n">3</td><td class="n">4</td><td class="n">3</td></tr>
-      <tr style="--c:var(--chatgpt)"><td><span class="dot"></span>Ember &amp; Crown · ChatGPT</td><td class="n">4</td><td class="n">5</td><td class="n">5</td><td class="n">4</td><td class="n">4</td><td class="n">4</td></tr>
-      <tr style="--c:var(--gemini)"><td><span class="dot"></span>Carreras · Gemini</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td></tr>
-      <tr style="--c:var(--copilot)"><td><span class="dot"></span>Caza aéreo · Copilot</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td></tr>
-      <tr style="--c:var(--mistral)"><td><span class="dot"></span>Laberinto · Mistral</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td></tr>
-      <tr style="--c:var(--chatgpt)"><td><span class="dot"></span>Plataformas · ChatGPT</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td></tr>
-    </tbody>
-  </table></div>
-  <p class="sub" style="margin-top:12px">Los criterios técnicos se comprueban con las mismas pruebas en móvil y ordenador para cada juego. La diversión la puntúa el responsable del proyecto tras jugar. Las notas de Hive Breach y Relic Run son provisionales. Ember &amp; Crown se puntúa tal como lo entregó ChatGPT, antes de cualquier ajuste por nuestra parte.</p>
-</section>
-
-<section aria-labelledby="method">
-  <h2 id="method">Cómo se hace</h2>
-  <p class="sub">La disciplina de entrega importa tanto como los juegos, así que cada creación sigue el mismo proceso sencillo.</p>
-  <ol class="steps">
-    <li><b>Un briefing claro</b><span>Cada proyecto parte de un briefing escrito: qué crear, para quién y cómo se ve «terminado». Una plantilla genérica y complementos están en el kit de construcción.</span></li>
-    <li><b>Creación con tiempo limitado</b><span>Cada proyecto tiene un número fijo de iteraciones. Se registran el tiempo, los prompts y el coste.</span></li>
-    <li><b>Prueba en móvil</b><span>Cada juego se abre en un móvil y un ordenador reales antes de publicarse.</span></li>
-    <li><b>Puntuar y publicar</b><span>Puntuado con los seis criterios anteriores, con notas sobre lo que funcionó y lo que hubo que corregir.</span></li>
-  </ol>
-  <p class="sub" style="margin-top:16px">Una plantilla de briefing inicial está en la <a href="../brief/">página del kit de creación</a>.</p>
-</section>
 <section aria-labelledby="cm"><h2 id="cm">Comentarios</h2><p class="sub">¿Has probado un juego? Deja un mensaje. Los comentarios aparecen tras su revisión, en cualquier idioma, y se pueden traducir al instante.</p><div id="comments" data-sitekey="0x4AAAAAAF81CqFomnZZgl-g" data-lang="es"></div></section>
 </main>
 
@@ -197,5 +167,5 @@ footer p{margin:0 0 6px;max-width:80ch}
   <p>Claude, ChatGPT, OpenAI, Gemini, Copilot y Mistral son marcas de sus respectivos propietarios. Esta página no está afiliada ni respaldada por ellos.</p>
   <p>El asistente de chat funciona con Claude a través de la API de Anthropic. Tu pregunta se envía a Anthropic para generar la respuesta y no se guarda en este sitio. Por favor, no compartas información personal. La protección contra bots (Cloudflare Turnstile) actúa de forma invisible y solo pide una verificación cuando es necesario.</p>
 </div></footer>
-<script>window.SK_COMMENTS={send:"Enviar",name:"Tu nombre",message:"Tu mensaje (mínimo 20 caracteres)",pending:"¡Gracias! Tu comentario aparecerá tras su revisión.",error:"Algo salió mal, inténtalo de nuevo.",translate:"Traducir",original:"Ver original",empty:"Aún no hay comentarios. Sé el primero.",like:"Me gusta"};window.SK_CHAT={"sitekey": "0x4AAAAAAF81CqFomnZZgl-g", "lang": "es", "endpoint": "/api/chat", "t": {"open": "Preguntar al asistente", "title": "Asistente de IA", "placeholder": "Haz una pregunta", "send": "Enviar", "hello": "¡Hola! Soy el asistente de IA de este sitio. Pregúntame sobre los juegos, la puntuación o cómo se construyó.", "note": "Asistente de IA (Claude). Puede cometer errores. Este sitio no guarda tus mensajes.", "close": "Cerrar", "error": "Algo salió mal. Inténtalo de nuevo.", "limit": "Has alcanzado el límite por hora. Inténtalo más tarde.", "busy": "El asistente descansa por hoy. Vuelve mañana.", "challenge": "Verificación fallida. Recarga la página.", "starters": []}};</script><script src="../assets/chat.js" defer></script><script src="../assets/comments.js" defer></script><script src="../assets/visits.js" defer></script></body>
+<script>window.SK_COMMENTS={send:"Enviar",name:"Tu nombre",message:"Tu mensaje (mínimo 20 caracteres)",pending:"¡Gracias! Tu comentario aparecerá tras su revisión.",error:"Algo salió mal, inténtalo de nuevo.",translate:"Traducir",original:"Ver original",empty:"Aún no hay comentarios. Sé el primero.",like:"Me gusta"};window.SK_CHAT={"sitekey": "0x4AAAAAAF81CqFomnZZgl-g", "lang": "es", "endpoint": "/api/chat", "t": {"open": "Preguntar al asistente", "title": "Asistente de IA", "placeholder": "Haz una pregunta", "send": "Enviar", "hello": "¡Hola! Soy el asistente de IA de este sitio. Pregúntame sobre los juegos o cómo se construyó el sitio.", "note": "Asistente de IA (Claude). Puede cometer errores. Este sitio no guarda tus mensajes.", "close": "Cerrar", "error": "Algo salió mal. Inténtalo de nuevo.", "limit": "Has alcanzado el límite por hora. Inténtalo más tarde.", "busy": "El asistente descansa por hoy. Vuelve mañana.", "challenge": "Verificación fallida. Recarga la página.", "starters": []}};</script><script src="../assets/chat.js" defer></script><script src="../assets/comments.js" defer></script><script src="../assets/visits.js" defer></script></body>
 </html>

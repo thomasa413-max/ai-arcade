@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AI Arcade</title>
-<meta name="description" content="在浏览器中运行的原创街机游戏，由不同的 AI 平台打造，并附评分表对比结果。 附带 AI 聊天助手。">
+<meta name="description" content="在浏览器中运行的原创街机游戏，由不同的 AI 平台打造。附带 AI 聊天助手。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Barlow+Semi+Condensed:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-/* Layout idea: an arcade marquee on top, then six cabinet cards, each lit in its platform's colour; a scorecard below. */
+/* Layout idea: an arcade marquee on top, then six cabinet cards, each lit in its platform's colour. */
 :root{
   --bg:#080b11; --panel:#101620; --line:#232e3d; --ink:#e8eef5; --mute:#93a3b5; --amber:#ffb02e;
   --claude:#ffb02e; --chatgpt:#3ddc97; --gemini:#8ab4ff; --copilot:#3fe0ff; --mistral:#ff6a4a;
@@ -88,7 +88,7 @@ footer p{margin:0 0 6px;max-width:80ch}
 <header class="marquee"><div class="wrap"><nav class="langs" aria-label="语言"><a href="../en/" hreflang="en" lang="en">English</a><a href="../fr/" hreflang="fr" lang="fr">Français</a><a href="../es/" hreflang="es" lang="es">Español</a><a href="../pt/" hreflang="pt" lang="pt">Português</a><a href="../de/" hreflang="de" lang="de">Deutsch</a><a href="../it/" hreflang="it" lang="it">Italiano</a><a href="../ar/" hreflang="ar" lang="ar">العربية</a><a href="../zh/" hreflang="zh" lang="zh" aria-current="true">中文</a></nav>
   <p class="eyebrow">用 AI 平台打造的游戏</p>
   <h1>街机游戏，<br><span>由 AI 打造。</span></h1>
-  <p class="lede">每款游戏都使用不同的 AI 平台打造。先玩游戏，再在同一张评分表上比较结果。 有问题？请使用页面右下角的 AI 助手。</p>
+  <p class="lede">每款游戏都使用不同的 AI 平台打造。快来玩玩，看看每个平台能做什么。有问题？请使用页面右下角的 AI 助手。</p>
   <div class="chips">
     <span class="chip" style="--c:var(--claude)">Claude</span><span class="chip" style="--c:var(--chatgpt)">ChatGPT</span><span class="chip" style="--c:var(--gemini)">Gemini</span><span class="chip" style="--c:var(--copilot)">Copilot</span><span class="chip" style="--c:var(--mistral)">Mistral</span>
   </div>
@@ -158,36 +158,6 @@ footer p{margin:0 0 6px;max-width:80ch}
 
   </div>
 </section>
-
-<section aria-labelledby="score">
-  <h2 id="score">评分方式</h2>
-  <p class="sub">同样的六项标准，每款游戏完成后按 0 到 5 分评分。评分在游戏完成后公布。</p>
-  <div class="scroller"><table>
-    <thead><tr><th>游戏</th><th>随处可玩</th><th>30 秒上手</th><th>趣味手感</th><th>完整度</th><th>打磨</th><th>符合各自需求</th></tr></thead>
-    <tbody>
-      <tr style="--c:var(--claude)"><td><span class="dot"></span>Hive Breach · Claude</td><td class="n">4</td><td class="n">4</td><td class="n">5</td><td class="n">5</td><td class="n">4</td><td class="n">5</td></tr>
-      <tr style="--c:var(--claude)"><td><span class="dot"></span>3D 游戏 · Claude</td><td class="n">4</td><td class="n">5</td><td class="n">5</td><td class="n">3</td><td class="n">4</td><td class="n">3</td></tr>
-      <tr style="--c:var(--chatgpt)"><td><span class="dot"></span>Ember &amp; Crown · ChatGPT</td><td class="n">4</td><td class="n">5</td><td class="n">5</td><td class="n">4</td><td class="n">4</td><td class="n">4</td></tr>
-      <tr style="--c:var(--gemini)"><td><span class="dot"></span>赛车 · Gemini</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td></tr>
-      <tr style="--c:var(--copilot)"><td><span class="dot"></span>战斗机 · Copilot</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td></tr>
-      <tr style="--c:var(--mistral)"><td><span class="dot"></span>迷宫 · Mistral</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td></tr>
-      <tr style="--c:var(--chatgpt)"><td><span class="dot"></span>平台跳跃 · ChatGPT</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td><td class="n">–</td></tr>
-    </tbody>
-  </table></div>
-  <p class="sub" style="margin-top:12px">技术项目对每款游戏使用相同的手机与桌面测试。趣味手感由项目负责人试玩后评分。Hive Breach 与 Relic Run 的分数为暂定。 Ember &amp; Crown 按 ChatGPT 交付时的状态评分，未包含我们后续的任何打磨。</p>
-</section>
-
-<section aria-labelledby="method">
-  <h2 id="method">如何进行</h2>
-  <p class="sub">交付规范与游戏同样重要，所以每次制作都遵循同样的简单流程。</p>
-  <ol class="steps">
-    <li><b>清晰的需求说明</b><span>每个项目都从书面需求开始：做什么、为谁做、完成的标准是什么。通用模板和附加模块见构建工具包。</span></li>
-    <li><b>限时制作</b><span>每个项目都有固定的迭代次数，并记录时间、提示词和成本。</span></li>
-    <li><b>手机测试</b><span>每款游戏在上线前都会在真实手机和电脑上打开测试。</span></li>
-    <li><b>评分与发布</b><span>按上述六项标准评分，并记录哪些做得好、哪些需要修正。</span></li>
-  </ol>
-  <p class="sub" style="margin-top:16px">起始需求模板见 <a href="../brief/">制作工具包页面</a>.</p>
-</section>
 <section aria-labelledby="cm"><h2 id="cm">评论</h2><p class="sub">玩过游戏了吗？留下你的留言。评论经审核后显示，任何语言均可，并可按需翻译。</p><div id="comments" data-sitekey="0x4AAAAAAF81CqFomnZZgl-g" data-lang="zh"></div></section>
 </main>
 
@@ -197,5 +167,5 @@ footer p{margin:0 0 6px;max-width:80ch}
   <p>Claude、ChatGPT、OpenAI、Gemini、Copilot 和 Mistral 是其各自所有者的商标。本页面与它们无关联，也未获其认可。</p>
   <p>聊天助手由 Claude 通过 Anthropic API 提供支持。你的问题会发送给 Anthropic 以生成回答，不会保存在本网站上。请勿在其中分享个人信息。机器人防护（Cloudflare Turnstile）在后台无感运行，仅在需要时才要求验证。</p>
 </div></footer>
-<script>window.SK_COMMENTS={send:"发送",name:"你的名字",message:"你的留言（至少 20 个字符）",pending:"谢谢！你的评论将在审核后显示。",error:"出错了，请重试。",translate:"翻译",original:"显示原文",empty:"还没有评论，来做第一个吧。",like:"赞"};window.SK_CHAT={"sitekey": "0x4AAAAAAF81CqFomnZZgl-g", "lang": "zh", "endpoint": "/api/chat", "t": {"open": "向助手提问", "title": "AI 助手", "placeholder": "请输入问题", "send": "发送", "hello": "你好！我是本站的 AI 助手。可以问我游戏、评分方式或网站是如何构建的。", "note": "AI 助手（Claude），可能出错。本站不会保存你的消息。", "close": "关闭", "error": "出错了，请重试。", "limit": "已达到每小时上限，请稍后再试。", "busy": "助手今天休息了，请明天再来。", "challenge": "验证失败，请刷新页面。", "starters": []}};</script><script src="../assets/chat.js" defer></script><script src="../assets/comments.js" defer></script><script src="../assets/visits.js" defer></script></body>
+<script>window.SK_COMMENTS={send:"发送",name:"你的名字",message:"你的留言（至少 20 个字符）",pending:"谢谢！你的评论将在审核后显示。",error:"出错了，请重试。",translate:"翻译",original:"显示原文",empty:"还没有评论，来做第一个吧。",like:"赞"};window.SK_CHAT={"sitekey": "0x4AAAAAAF81CqFomnZZgl-g", "lang": "zh", "endpoint": "/api/chat", "t": {"open": "向助手提问", "title": "AI 助手", "placeholder": "请输入问题", "send": "发送", "hello": "你好！我是本站的 AI 助手。可以问我游戏或网站是如何构建的。", "note": "AI 助手（Claude），可能出错。本站不会保存你的消息。", "close": "关闭", "error": "出错了，请重试。", "limit": "已达到每小时上限，请稍后再试。", "busy": "助手今天休息了，请明天再来。", "challenge": "验证失败，请刷新页面。", "starters": []}};</script><script src="../assets/chat.js" defer></script><script src="../assets/comments.js" defer></script><script src="../assets/visits.js" defer></script></body>
 </html>
