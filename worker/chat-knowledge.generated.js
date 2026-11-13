@@ -20,6 +20,10 @@ CHATGPT · 3D PLAYABLE
 Ember & Crown
 3D checkers against the computer at three levels, or with a friend on the same device. Built by ChatGPT from the same brief.
 Play Ember & Crown
+MISTRAL · 2D PLAYABLE
+Neon Dojo
+2D street fighter on a neon rooftop: two fighters, special moves and a super meter, best of three rounds against the computer or a friend. Game code by Mistral, photo-real art by ChatGPT's image model.
+Play Neon Dojo
 GEMINI · 2D IN THE QUEUE
 Racing game
 Arcade racing on a scrolling road: dodge traffic, grab boosts and reach the finish line.
