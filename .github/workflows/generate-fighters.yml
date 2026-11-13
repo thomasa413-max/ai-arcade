@@ -1,0 +1,59 @@
+name: Generate fighter art (OpenAI image API)
+on:
+  workflow_dispatch:
+    inputs:
+      step:
+        description: "refs = reference sheets (approve first) | poses = all poses | stage = backgrounds"
+        type: choice
+        options: [refs, poses, stage]
+        default: refs
+      char:
+        description: "Fighters: rhea,brann"
+        type: string
+        default: "rhea,brann"
+      only:
+        description: "Optional comma list of poses, e.g. idle_a,lp_strike"
+        type: string
+        default: ""
+      force:
+        description: "Regenerate files that already exist"
+        type: boolean
+        default: false
+      quality:
+        description: "Image quality"
+        type: choice
+        options: [medium, high]
+        default: medium
+permissions:
+  contents: write
+concurrency:
+  group: fighter-art
+jobs:
+  art:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Generate
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          STEP: ${{ inputs.step }}
+          CHARS: ${{ inputs.char }}
+          ONLY: ${{ inputs.only }}
+          QUALITY: ${{ inputs.quality }}
+          FORCE: ${{ inputs.force }}
+        run: |
+          args="--step=$STEP --char=$CHARS --quality=$QUALITY"
+          if [ -n "$ONLY" ]; then args="$args --only=$ONLY"; fi
+          if [ "$FORCE" = "true" ]; then args="$args --force"; fi
+          node fighter/tools/generate-fighters.mjs $args
+      - name: Commit images
+        if: always()
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@users.noreply.github.com"
+          git add fighter/art
+          git diff --cached --quiet || (git commit -m "Fighter art: ${{ inputs.step }} generated with the OpenAI image API" && git pull -q --rebase && git push)

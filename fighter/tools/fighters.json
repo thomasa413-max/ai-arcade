@@ -1,0 +1,91 @@
+{
+  "style": "Photorealistic, ultra-detailed cinematic photograph of a real person, natural skin texture, realistic fabric and lighting, soft studio key light from the upper right with a subtle cool rim light, sharp focus, 85mm lens look. No text, no logos, no watermark, no visual effects, no glow, no motion blur, no speech bubbles.",
+  "chars": {
+    "rhea": {
+      "name": "Rhea Vance",
+      "desc": "an original fictional character: an athletic woman in her late twenties, toned and agile, light brown skin, dark purple-black hair tied in a high ponytail, determined expression; fitted cyan track jacket with white trim stripe and a pink collar, dark navy leggings, white sneakers with pink soles, white fingerless hand wraps on both fists"
+    },
+    "brann": {
+      "name": "Brann Ironhide",
+      "desc": "an original fictional character: a powerfully built bearded man in his forties, broad shoulders and very muscular bare arms, tanned skin, short brown hair and a full dark-brown beard, stern expression; sleeveless orange work vest with a darker orange trim, grey cargo pants, dark brown leather boots, black belt with a gold buckle, white hand wraps on both forearms and fists"
+    }
+  },
+  "ref": {
+    "size": "1536x1024",
+    "prompt": "Character reference sheet on a plain light grey studio background: the same person shown three times in a row, full body head to toe, standing relaxed: front view, side view facing right, and back view. Even soft lighting, identical outfit and face in all three. Person: {desc}"
+  },
+  "frame": "Use the attached character reference sheet: it must be exactly the same person (same face, hair, body, outfit, colors). Draw ONE full-body picture, side-on camera, the fighter facing RIGHT, whole body from head to feet fully inside the frame with margin on all sides, the fighter's standing height about 70% of the picture height, camera fixed at waist height, feet on a ground line at about 88% of the picture height. Transparent background (if transparency is impossible use a flat pure green #00FF00 background). Pose: ",
+  "poses": {
+    "idle_a": "fighting stance, knees slightly bent, both fists raised guarding the face, weight on the back leg, alert and focused",
+    "idle_b": "same fighting stance, body slightly lower and rising, fists raised, breathing",
+    "walk_1": "walking forward in a fighting stance, front foot just landing ahead, fists up",
+    "walk_2": "walking forward in a fighting stance, passing step, back foot lifting, fists up",
+    "walk_3": "walking forward in a fighting stance, back foot stepping ahead, fists up",
+    "walk_4": "walking forward in a fighting stance, passing step on the other leg, fists up",
+    "crouch": "crouching low on the balls of the feet, one hand guarding the face",
+    "block": "standing guard, both forearms crossed in front of face and chest, braced",
+    "crouch_block": "crouching low behind crossed forearms, guarding",
+    "jump_up": "mid-air jump rising, knees tucked, fists up",
+    "jump_down": "mid-air falling, legs extending downward to land",
+    "land": "landing impact, knees deeply bent, one hand near the floor",
+    "dash_fwd": "dashing forward low, body leaning far forward, one leg pushing off the ground",
+    "dash_back": "hopping backward, leaning back, guard up",
+    "hit_high": "struck in the face, head snapped back, wincing, arms flung out",
+    "hit_low": "struck in the stomach, doubled over forward, wincing",
+    "knock_air": "knocked backward through the air, body nearly horizontal, arms and legs flailing",
+    "knock_floor": "lying flat on the back on the ground, head to the left, knees slightly bent, dazed",
+    "getup": "getting up from the floor, one knee on the ground, one hand pushing off",
+    "thrown": "being thrown, flipped upside down in mid-air",
+    "ko_lie": "knocked out, lying flat on the back on the ground, limp, eyes closed, head to the left",
+    "victory_1": "victory pose, one fist raised triumphantly above the head, confident smile",
+    "victory_2": "victory pose, arms crossed over the chest, proud smirk",
+    "lp_windup": "jab wind-up, lead fist pulled back near the chest",
+    "lp_strike": "jab strike, lead arm fully extended straight forward at head height, fist clenched",
+    "hp_windup": "heavy punch wind-up, rear fist pulled far back, torso twisted, weight loaded",
+    "hp_strike": "heavy punch strike, rear arm fully extended forward, torso twisted into the punch, back foot pivoting",
+    "lk_windup": "snap kick wind-up, front knee raised high",
+    "lk_strike": "snap kick strike, front leg extended straight forward at waist height",
+    "hk_windup": "roundhouse kick wind-up, standing on one leg, other knee chambered",
+    "hk_strike": "roundhouse kick strike, leg extended horizontally forward at head height, torso leaning back",
+    "clp_windup": "crouching punch wind-up, low crouch, fist pulled back",
+    "clp_strike": "crouching punch strike, low crouch, arm extended forward",
+    "chp_windup": "uppercut wind-up, deep crouch, fist dropped low near the knee",
+    "chp_strike": "rising uppercut strike, rising from the crouch, fist driving straight up",
+    "clk_windup": "low kick wind-up, crouched, leg chambered",
+    "clk_strike": "low kick strike, crouched, leg extended forward at shin height",
+    "chk_windup": "sweep kick wind-up, crouched, supporting hand on the ground",
+    "chk_strike": "sweep kick strike, crouched, leg swept out low along the ground",
+    "jp_strike": "jumping punch, in mid-air, one arm extended forward",
+    "jk_strike": "jumping kick, in mid-air, one leg extended forward diagonally downward",
+    "throw_windup": "reaching forward with both hands to grab an opponent, leaning in",
+    "throw_strike": "hurling an opponent forward over the shoulder, both arms swinging through"
+  },
+  "special": {
+    "rhea": {
+      "sp1_windup": "both hands cupped together at the hip, palms facing each other, crouched slightly, focused",
+      "sp1_strike": "both palms thrust forward together at chest height, arms extended, fierce shout",
+      "sp2_windup": "coiled low in a sprinter's start, one shoulder dropped, fists clenched",
+      "sp2_strike": "flying forward horizontally, shoulder-first dash, body leaning almost flat, one fist forward",
+      "sp3_windup": "deep crouch, one fist pulled back low, ready to leap",
+      "sp3_strike": "leaping straight upward with a rising spinning kick, body arched, one leg extended up",
+      "super_windup": "arms spread wide, head back, chest open, eyes closed, gathering power",
+      "super_strike": "furious rapid punching, both fists extended forward, torso twisted, intense shout"
+    },
+    "brann": {
+      "sp1_windup": "both fists clasped together raised high overhead, knees bent",
+      "sp1_strike": "both fists slamming down into the ground in a deep lunge, bent forward, roaring",
+      "sp2_windup": "shoulder dropped low, braced like a bull about to charge, fists at the sides",
+      "sp2_strike": "charging forward shoulder-first, body low and leaning far forward, one arm extended forward",
+      "sp3_windup": "deep crouch, one fist pulled back low, ready to leap",
+      "sp3_strike": "leaping straight upward with a rising uppercut, fist driving overhead, body stretched",
+      "super_windup": "both arms raised high above the head, fists clasped, chest open, roaring",
+      "super_strike": "colossal two-handed overhead smash downward, deep lunge, face contorted with effort"
+    }
+  },
+  "stage": [
+    { "file": "stage_sky", "size": "1536x1024", "prompt": "Photorealistic night sky over a big city at dusk, deep purple to orange horizon glow, a large full moon on the right, scattered stars, distant skyline silhouette at the bottom edge. No text. Landscape photo.", "background": "opaque" },
+    { "file": "stage_mid", "size": "1536x1024", "prompt": "Photorealistic row of tall city buildings at night seen from a rooftop, many lit windows in warm yellow, cyan and pink, neon signs without readable text, the buildings fill the lower 70% of the picture and the top is transparent so a sky shows behind. No text.", "background": "transparent" },
+    { "file": "stage_near", "size": "1536x1024", "prompt": "Photorealistic rooftop foreground: metal safety railing, pipes, ventilation boxes and a glowing neon sign without readable text, seen straight-on from fighter height, only the bottom 45% of the picture contains objects, the rest transparent. No text.", "background": "transparent" },
+    { "file": "stage_floor", "size": "1536x1024", "prompt": "Photorealistic rooftop floor surface, dark wet concrete tiles with faint cyan neon reflections, seen straight-on at a very shallow angle so it looks like a thin horizontal strip, the strip occupies the bottom 25% of the picture, the rest transparent. No text.", "background": "transparent" }
+  ]
+}
