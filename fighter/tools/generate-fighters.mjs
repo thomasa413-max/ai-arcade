@@ -49,10 +49,10 @@ if(step==='refs'){
     const ref=path.join(ART,c,'ref.webp'); if(!fs.existsSync(ref)){console.error('Missing reference sheet for',c,'- run the refs step first and approve it.');process.exit(1)}
     const all={...cfg.poses,...Object.fromEntries(Object.entries(cfg.special[c]).map(([k,v])=>[c+'_'+k,v]))};
     for(const [id,desc] of Object.entries(all)){ if(only&&!only.includes(id))continue;
-      jobs.push({file:path.join(ART,c,id+'.webp'),size:'1536x1024',background:'transparent',refs:[ref],prompt:cfg.style+' '+cfg.frame+desc+'. Character: '+cfg.chars[c].desc});}
+      jobs.push({file:path.join(ART,c,id+'.webp'),size:'1536x1024',background:null,refs:[ref],prompt:cfg.style+' '+cfg.frame+desc+'. Character: '+cfg.chars[c].desc});}
   }
 }else if(step==='stage'){
-  for(const s of cfg.stage){ if(only&&!only.includes(s.file))continue; jobs.push({file:path.join(ART,'stage',s.file+'.webp'),size:s.size,background:s.background,prompt:s.prompt}); }
+  for(const s of cfg.stage){ if(only&&!only.includes(s.file))continue; jobs.push({file:path.join(ART,'stage',s.file+'.webp'),size:s.size,background:s.background==='opaque'?'opaque':null,prompt:s.prompt}); }
 }else{console.error('Unknown step',step);process.exit(1)}
 console.log(`step=${step} jobs=${jobs.length} quality=${QUALITY}`);
 let idx=0; await Promise.all(Array.from({length:3},async()=>{while(idx<jobs.length)await call(jobs[idx++])}));

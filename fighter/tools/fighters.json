@@ -14,7 +14,7 @@
     "size": "1536x1024",
     "prompt": "Character reference sheet on a plain light grey studio background: the same person shown three times in a row, full body head to toe, standing relaxed: front view, side view facing right, and back view. Even soft lighting, identical outfit and face in all three. Person: {desc}"
   },
-  "frame": "Use the attached character reference sheet: it must be exactly the same person (same face, hair, body, outfit, colors). Draw ONE full-body picture, side-on camera, the fighter facing RIGHT, whole body from head to feet fully inside the frame with margin on all sides, the fighter's standing height about 70% of the picture height, camera fixed at waist height, feet on a ground line at about 88% of the picture height. Transparent background (if transparency is impossible use a flat pure green #00FF00 background). Pose: ",
+  "frame": "Use the attached character reference sheet: it must be exactly the same person (same face, hair, body, outfit, colors). Draw ONE full-body picture, side-on camera, the fighter facing RIGHT, whole body from head to feet fully inside the frame with margin on all sides, the fighter's standing height about 70% of the picture height, camera fixed at waist height, feet on a ground line at about 88% of the picture height. Background: one flat, uniform, pure chroma-key green (#00FF00) filling the whole picture, no floor, no shadow, no gradient, no checkerboard, no other objects; no green anywhere on the person. Pose: ",
   "poses": {
     "idle_a": "fighting stance, knees slightly bent, both fists raised guarding the face, weight on the back leg, alert and focused",
     "idle_b": "same fighting stance, body slightly lower and rising, fists raised, breathing",
@@ -83,9 +83,29 @@
     }
   },
   "stage": [
-    { "file": "stage_sky", "size": "1536x1024", "prompt": "Photorealistic night sky over a big city at dusk, deep purple to orange horizon glow, a large full moon on the right, scattered stars, distant skyline silhouette at the bottom edge. No text. Landscape photo.", "background": "opaque" },
-    { "file": "stage_mid", "size": "1536x1024", "prompt": "Photorealistic row of tall city buildings at night seen from a rooftop, many lit windows in warm yellow, cyan and pink, neon signs without readable text, the buildings fill the lower 70% of the picture and the top is transparent so a sky shows behind. No text.", "background": "transparent" },
-    { "file": "stage_near", "size": "1536x1024", "prompt": "Photorealistic rooftop foreground: metal safety railing, pipes, ventilation boxes and a glowing neon sign without readable text, seen straight-on from fighter height, only the bottom 45% of the picture contains objects, the rest transparent. No text.", "background": "transparent" },
-    { "file": "stage_floor", "size": "1536x1024", "prompt": "Photorealistic rooftop floor surface, dark wet concrete tiles with faint cyan neon reflections, seen straight-on at a very shallow angle so it looks like a thin horizontal strip, the strip occupies the bottom 25% of the picture, the rest transparent. No text.", "background": "transparent" }
+    {
+      "file": "stage_sky",
+      "size": "1536x1024",
+      "prompt": "Photorealistic night sky over a big city at dusk, deep purple to orange horizon glow, a large full moon on the right, scattered stars, distant skyline silhouette at the bottom edge. No text. Landscape photo.",
+      "background": "opaque"
+    },
+    {
+      "file": "stage_mid",
+      "size": "1536x1024",
+      "prompt": "Photorealistic row of tall city buildings at night seen from a rooftop, many lit windows in warm yellow, cyan and pink, neon signs without readable text, the buildings fill the lower 70% of the picture and the empty areas are one flat uniform pure chroma-key green (#00FF00). No text.",
+      "background": "green"
+    },
+    {
+      "file": "stage_near",
+      "size": "1536x1024",
+      "prompt": "Photorealistic rooftop foreground: metal safety railing, pipes, ventilation boxes and a glowing neon sign without readable text, seen straight-on from fighter height, only the bottom 45% of the picture contains objects, the empty areas are one flat uniform pure chroma-key green (#00FF00). No text.",
+      "background": "green"
+    },
+    {
+      "file": "stage_floor",
+      "size": "1536x1024",
+      "prompt": "Photorealistic rooftop floor surface, dark wet concrete tiles with faint cyan neon reflections, seen straight-on at a very shallow angle so it looks like a thin horizontal strip, the strip occupies the bottom 25% of the picture, the empty areas are one flat uniform pure chroma-key green (#00FF00). No text.",
+      "background": "green"
+    }
   ]
 }
